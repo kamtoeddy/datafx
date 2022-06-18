@@ -45,18 +45,30 @@ const getSubObject = (obj: looseObject, sampleSub: looseObject) => {
   return _obj;
 };
 
-export const filter = (data: any[], determinant: any, { exclude = false }) => {
-  const asFx = typeof determinant === "function";
+export const filter = (
+  data: any[],
+  determinant: any,
+  { exclude }: { exclude: boolean } = { exclude: false }
+) => {
+  const detType = typeof determinant;
 
-  if (asFx)
+  if (detType === "function")
     return data.filter((dt) => {
       const allowed = determinant(dt);
       return exclude ? !allowed : allowed;
     });
 
-  const asObj = typeof determinant === "object";
+  if (Array.isArray(determinant))
+    return data.filter((dt) => {
+      const [key, value] = determinant;
+      const dt_val = getDeepValue(dt, { key });
 
-  if (asObj)
+      const allowed = isEqual(dt_val, value);
+
+      return exclude ? !allowed : allowed;
+    });
+
+  if (detType === "object")
     return data.filter((dt) => {
       const sub = getSubObject(dt, determinant);
 
@@ -72,13 +84,19 @@ export const filter = (data: any[], determinant: any, { exclude = false }) => {
 };
 
 export const find = (data: looseObjArr = [], determinant: any) => {
-  const asFx = typeof determinant === "function";
+  const detType = typeof determinant;
 
-  if (asFx) return data.find(determinant);
+  if (detType === "function") return data.find(determinant);
 
-  const asObj = typeof determinant === "object";
+  if (Array.isArray(determinant))
+    return data.find((dt) => {
+      const [key, value] = determinant;
+      const dt_val = getDeepValue(dt, { key });
 
-  if (asObj)
+      return isEqual(dt_val, value);
+    });
+
+  if (detType === "object")
     return data.find((dt) => {
       const sub = getSubObject(dt, determinant);
 
@@ -96,7 +114,7 @@ export const getList = (data: looseObjArr, { key }: { key: string }) => {
 };
 
 export const getDeepValue = (data: looseObject, { key }: { key: string }) => {
-  return key.split(".").reduce((prev, next) => prev[next], data);
+  return key.split(".").reduce((prev, next) => prev?.[next], data);
 };
 
 export const assignDeep = (
