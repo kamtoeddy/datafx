@@ -145,3 +145,20 @@ export const removeAt = (list = [], index = 0) => {
   newList.splice(index, 1);
   return newList;
 };
+
+export const _removeDeep = (data: looseObject, keys: string[]): looseObject => {
+  const key = keys.shift();
+
+  if (!key) return data;
+
+  if (!keys.length) {
+    delete data[key];
+    return data;
+  }
+
+  return { ...data, [key]: _removeDeep(data[key], keys) };
+};
+
+export const removeDeep = (data: looseObject, key: string) => {
+  return _removeDeep(data, key.split("."));
+};
