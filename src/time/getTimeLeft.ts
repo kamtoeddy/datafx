@@ -21,5 +21,7 @@ export const getTimeLeft = (endTime: string) => {
     isNegative
   );
 
-  return { days, hours, minutes, seconds };
+  const isOver = [days, hours, minutes, seconds].every((v) => v === 0);
+
+  return { isOver, days, hours, minutes, seconds };
 };
