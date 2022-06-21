@@ -40,9 +40,6 @@ export const capitalise = (value: string) => {
 
 export const cloneDeep = (data: any) => JSON.parse(JSON.stringify(data));
 
-export const getDateString = (value = new Date()) =>
-  new Date(value).toISOString().substring(0, 10);
-
 export const getDeepValue = (
   data: looseObject,
   { key }: { key: string }
