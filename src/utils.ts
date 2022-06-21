@@ -127,3 +127,13 @@ export const _removeDeep = (data: looseObject, keys: string[]): looseObject => {
 export const removeDeep = (data: looseObject, key: string) => {
   return _removeDeep(data, key.split("."));
 };
+
+export const useIfFalsy = (
+  alternate: any,
+  v: any,
+  determinant?: (v: any) => boolean
+) => {
+  if (!determinant) return v ? v : alternate;
+
+  return determinant(v) ? alternate : v;
+};
