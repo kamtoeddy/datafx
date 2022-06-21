@@ -1,6 +1,7 @@
 export * from "./countBy";
 export * from "./filterBy";
 export * from "./findBy";
+export * from "./getOrdinalPosition";
 export * from "./getUniqueBy";
 export * from "./groupBy";
 export * from "./optimizers";
