@@ -1,11 +1,7 @@
-export * from "./countBy";
-export * from "./filterBy";
-export * from "./findBy";
-export * from "./getOrdinalPosition";
-export * from "./getUniqueBy";
-export * from "./groupBy";
+export * from "./arrays";
+export * from "./numbers";
 export * from "./optimizers";
-export * from "./sortBy";
+export * from "./time";
 export * from "./toBase64";
 export * from "./utils";
 

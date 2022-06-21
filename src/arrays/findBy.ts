@@ -1,5 +1,5 @@
-import { looseObjArr } from "./interfaces";
-import { getDeepValue, getSubObject, isEqual } from "./utils";
+import { looseObjArr } from "../interfaces";
+import { getDeepValue, getSubObject, isEqual } from "../utils";
 
 export const findBy = (data: looseObjArr = [], determinant: any) => {
   const detType = typeof determinant;

@@ -1,4 +1,4 @@
-import { getDeepValue } from "./utils";
+import { getDeepValue } from "../utils";
 
 const asObject = (data: any[], key: string, order?: string) => {
   return data.sort((a, b) => {

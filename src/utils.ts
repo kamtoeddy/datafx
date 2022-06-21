@@ -1,4 +1,5 @@
 import { looseObjArr, looseObject } from "./interfaces";
+import { secondsToTime } from "./time/secondsToTime";
 
 export const assignDeep = (
   data: looseObject,
@@ -38,24 +39,6 @@ export const capitalise = (value: string) => {
 };
 
 export const cloneDeep = (data: any) => JSON.parse(JSON.stringify(data));
-
-export const getRandom = (
-  {
-    lowerB = 0.0,
-    upperB = 100.0,
-    dp = 0,
-  }: {
-    lowerB?: number;
-    upperB?: number;
-    dp?: number;
-  } = {
-    lowerB: 0.0,
-    upperB: 100.0,
-    dp: 0,
-  }
-) => {
-  return Number((Math.random() * (upperB - lowerB) + lowerB).toFixed(dp));
-};
 
 export const getDateString = (value = new Date()) =>
   new Date(value).toISOString().substring(0, 10);
@@ -98,27 +81,6 @@ export function isEqual(a: any, b: any) {
   }
 
   return ref_a === ref_b;
-}
-
-export function secondsToTime(timeInSecs: number) {
-  const days = Math.floor(timeInSecs / (60 * 60 * 24));
-
-  timeInSecs -= days * (60 * 60 * 24);
-
-  const hours = Math.floor(timeInSecs / (60 * 60));
-
-  timeInSecs -= hours * (60 * 60);
-
-  const minutes = Math.floor(timeInSecs / 60);
-
-  timeInSecs -= minutes * 60;
-
-  return {
-    days,
-    hours,
-    minutes,
-    seconds: Math.floor(timeInSecs),
-  };
 }
 
 export const setDeepValue = (

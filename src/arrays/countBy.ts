@@ -1,7 +1,7 @@
-import { looseObjArr } from "./interfaces";
-import { getDeepValue } from "./utils";
+import { looseObjArr } from "../interfaces";
+import { getDeepValue } from "../utils";
 
-export const groupBy = (data: looseObjArr = [], determinant: any) => {
+export const countBy = (data: looseObjArr = [], determinant: any) => {
   if (!data) return [];
 
   const asFx = typeof determinant === "function";
@@ -14,9 +14,9 @@ export const groupBy = (data: looseObjArr = [], determinant: any) => {
     if (key === undefined) return prev;
 
     if (prev.hasOwnProperty(key)) {
-      prev[key].push(next);
+      prev[key] += 1;
     } else {
-      prev[key] = [next];
+      prev[key] = 1;
     }
 
     return prev;
