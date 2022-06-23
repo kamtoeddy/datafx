@@ -1,22 +1,6 @@
-import { looseObjArr, looseObject } from "./interfaces";
+import { looseObjArr } from "./interfaces";
+import { getDeepValue } from "./objects";
 import { secondsToTime } from "./time/secondsToTime";
-
-export const assignDeep = (
-  data: looseObject,
-  { keys, value }: { keys: string[]; value: any }
-): looseObject => {
-  const key = keys.shift();
-
-  if (!key) return data;
-
-  if (!keys.length) {
-    data[key] = value;
-
-    return data;
-  }
-
-  return { ...data, [key]: assignDeep(data[key], { keys, value }) };
-};
 
 const capitaliseOne = (word = "") => {
   return word[0].toUpperCase() + word.slice(1).toLowerCase();
@@ -40,25 +24,8 @@ export const capitalise = (value: string) => {
 
 export const cloneDeep = (data: any) => JSON.parse(JSON.stringify(data));
 
-export const getDeepValue = (
-  data: looseObject,
-  { key }: { key: string }
-): any => {
-  return key.split(".").reduce((prev, next) => prev?.[next], data);
-};
-
 export const getList = (data: looseObjArr, { key }: { key: string }) => {
   return [...new Set(data.map((dt) => getDeepValue(dt, { key })))];
-};
-
-export const getSubObject = (obj: looseObject, sampleSub: looseObject) => {
-  const _obj: looseObject = {};
-
-  Object.keys(sampleSub).forEach(
-    (key) => (_obj[key] = getDeepValue(obj, { key }))
-  );
-
-  return _obj;
 };
 
 export function isEqual(a: any, b: any) {
@@ -80,16 +47,7 @@ export function isEqual(a: any, b: any) {
   return ref_a === ref_b;
 }
 
-export const setDeepValue = (
-  data: looseObject,
-  { key, value }: { key: string; value: any }
-) => {
-  const keys = key.split(".");
-
-  return assignDeep(cloneDeep(data), { keys, value });
-};
-
-export function setPadStart(str: string | number, num = 2, symbol = "0") {
+export function setPadStart(str: string | number = "", num = 2, symbol = "0") {
   return String(str).padStart(num, symbol);
 }
 
@@ -109,23 +67,6 @@ export const removeAt = (list = [], index = 0) => {
   const newList = [...list];
   newList.splice(index, 1);
   return newList;
-};
-
-export const _removeDeep = (data: looseObject, keys: string[]): looseObject => {
-  const key = keys.shift();
-
-  if (!key) return data;
-
-  if (!keys.length) {
-    delete data[key];
-    return data;
-  }
-
-  return { ...data, [key]: _removeDeep(data[key], keys) };
-};
-
-export const removeDeep = (data: looseObject, key: string) => {
-  return _removeDeep(data, key.split("."));
 };
 
 export const useIfFalsy = (

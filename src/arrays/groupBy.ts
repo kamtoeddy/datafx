@@ -1,5 +1,5 @@
 import { looseObjArr } from "../interfaces";
-import { getDeepValue } from "../utils";
+import { getDeepValue } from "../objects";
 
 export const groupBy = (data: looseObjArr = [], determinant: any) => {
   if (!data) return [];

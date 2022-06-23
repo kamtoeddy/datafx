@@ -1,5 +1,5 @@
 import { looseObject } from "../interfaces";
-import { getDeepValue } from "../utils";
+import { getDeepValue } from "../objects";
 
 type options = {
   backwards?: boolean;

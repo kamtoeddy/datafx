@@ -1,4 +1,5 @@
-import { getDeepValue, getSubObject, isEqual } from "../utils";
+import { getDeepValue, getSubObject } from "../objects";
+import { isEqual } from "../utils";
 
 type options = {
   exclude?: boolean;
