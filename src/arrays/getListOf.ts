@@ -1,12 +1,11 @@
-import { looseObject } from "../interfaces";
 import { getDeepValue } from "../objects";
 
 type options = { unique?: boolean };
 
 export const getListOf = (
-  list: looseObject[],
+  list: any[],
   key: string,
-  { unique }: options = { unique: true }
+  { unique }: options = { unique: false }
 ) => {
   const _list = list.map((dt) => getDeepValue(dt, { key }));
 
