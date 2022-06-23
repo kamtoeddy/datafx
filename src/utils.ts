@@ -1,5 +1,3 @@
-import { looseObjArr } from "./interfaces";
-import { getDeepValue } from "./objects";
 import { secondsToTime } from "./time/secondsToTime";
 
 const capitaliseOne = (word = "") => {
@@ -23,10 +21,6 @@ export const capitalise = (value: string) => {
 };
 
 export const cloneDeep = (data: any) => JSON.parse(JSON.stringify(data));
-
-export const getList = (data: looseObjArr, { key }: { key: string }) => {
-  return [...new Set(data.map((dt) => getDeepValue(dt, { key })))];
-};
 
 export function isEqual(a: any, b: any) {
   const typeOf_a = typeof a;
