@@ -1,18 +1,14 @@
 import { getDeepValue, getSubObject } from "../objects";
 import { isEqual } from "../utils";
 
-type options = {
-  exclude?: boolean;
-};
+type options = { exclude?: boolean };
 
-const asArray = (
-  data: any[],
-  determinant: any,
-  options: options = { exclude: false }
-) => {
+type Fx = (list: any[], determinant: any, options?: options) => any[];
+
+const asArray: Fx = (list, determinant, options = { exclude: false }) => {
   const { exclude } = options;
 
-  return data.filter((dt) => {
+  return list.filter((dt) => {
     const [key, value] = determinant;
     const dt_val = getDeepValue(dt, { key });
 
@@ -22,27 +18,19 @@ const asArray = (
   });
 };
 
-const asFunction = (
-  data: any[],
-  determinant: any,
-  options: options = { exclude: false }
-) => {
+const asFunction: Fx = (list, determinant, options = { exclude: false }) => {
   const { exclude } = options;
 
-  return data.filter((dt) => {
+  return list.filter((dt) => {
     const allowed = determinant(dt);
     return exclude ? !allowed : allowed;
   });
 };
 
-const asObject = (
-  data: any[],
-  determinant: any,
-  options: options = { exclude: false }
-) => {
+const asObject: Fx = (list, determinant, options = { exclude: false }) => {
   const { exclude } = options;
 
-  return data.filter((dt) => {
+  return list.filter((dt) => {
     const sub = getSubObject(dt, determinant);
 
     let allowed = isEqual(determinant, sub);
@@ -51,22 +39,22 @@ const asObject = (
   });
 };
 
-export const filterBy = (
-  data: any[],
-  determinant: any,
-  options: options = { exclude: false }
+export const filterBy: Fx = (
+  list,
+  determinant,
+  options = { exclude: false }
 ) => {
   const detType = typeof determinant;
 
-  if (detType === "function") return asFunction(data, determinant, options);
+  if (detType === "function") return asFunction(list, determinant, options);
 
-  if (Array.isArray(determinant)) return asArray(data, determinant, options);
+  if (Array.isArray(determinant)) return asArray(list, determinant, options);
 
-  if (detType === "object") return asObject(data, determinant, options);
+  if (detType === "object") return asObject(list, determinant, options);
 
   const { exclude } = options;
 
-  return data.filter((dt) => {
+  return list.filter((dt) => {
     let allowed = getDeepValue(dt, { key: determinant });
     return exclude ? !allowed : allowed;
   });

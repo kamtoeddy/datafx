@@ -57,12 +57,6 @@ export function prettyTime(ms: number) {
   return result.trim() || "00m";
 }
 
-export const removeAt = (list = [], index = 0) => {
-  const newList = [...list];
-  newList.splice(index, 1);
-  return newList;
-};
-
 export const useIfFalsy = (
   alternate: any,
   v: any,

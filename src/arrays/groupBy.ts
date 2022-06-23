@@ -1,12 +1,12 @@
-import { looseObjArr } from "../interfaces";
+import { looseObject } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-export const groupBy = (data: looseObjArr = [], determinant: any) => {
-  if (!data) return [];
+export const groupBy = (list: looseObject[] = [], determinant: any) => {
+  if (!list) return [];
 
   const asFx = typeof determinant === "function";
 
-  return data.reduce((prev, next) => {
+  return list.reduce((prev, next) => {
     const key = asFx
       ? determinant(next)
       : getDeepValue(next, { key: determinant });

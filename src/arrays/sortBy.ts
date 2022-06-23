@@ -1,7 +1,7 @@
 import { getDeepValue } from "../objects";
 
-const asObject = (data: any[], key: string, order?: string) => {
-  return data.sort((a, b) => {
+const asObject = (list: any[], key: string, order?: string) => {
+  return list.sort((a, b) => {
     const a_val = getDeepValue(a, { key });
     const b_val = getDeepValue(b, { key });
 
@@ -11,12 +11,12 @@ const asObject = (data: any[], key: string, order?: string) => {
   });
 };
 
-export const sortBy = (data: any[], determinant?: any, order?: string) => {
-  if (!determinant) return data.sort((a, b) => (a < b ? -1 : 1));
+export const sortBy = (list: any[], determinant?: any, order?: string) => {
+  if (!determinant) return list.sort((a, b) => (a < b ? -1 : 1));
 
   const detType = typeof determinant;
 
-  if (detType === "function") return data.sort(determinant);
+  if (detType === "function") return list.sort(determinant);
 
-  return asObject(data, determinant, order);
+  return asObject(list, determinant, order);
 };

@@ -1,12 +1,10 @@
 import { looseObject } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-type options = {
-  backwards?: boolean;
-};
+type options = { backwards?: boolean };
 
-const getUnique = (data: any[]) => {
-  data = data.map((dt) => {
+const getUnique = (list: any[]) => {
+  list = list.map((dt) => {
     try {
       return JSON.stringify(dt);
     } catch (err) {
@@ -14,9 +12,9 @@ const getUnique = (data: any[]) => {
     }
   });
 
-  data = [...new Set(data)];
+  list = [...new Set(list)];
 
-  data = data.map((dt) => {
+  list = list.map((dt) => {
     try {
       return JSON.parse(dt);
     } catch (err) {
@@ -24,21 +22,21 @@ const getUnique = (data: any[]) => {
     }
   });
 
-  return data;
+  return list;
 };
 
 export const getUniqueBy = (
-  data: any[],
+  list: any[],
   key?: string,
   { backwards }: options = { backwards: false }
 ) => {
-  if (backwards) data = data.reverse();
+  if (backwards) list = list.reverse();
 
-  if (!key) return getUnique(data);
+  if (!key) return getUnique(list);
 
   let obj: looseObject = {};
 
-  data.forEach((dt) => (obj[getDeepValue(dt, { key })] = dt));
+  list.forEach((dt) => (obj[getDeepValue(dt, { key })] = dt));
 
   return Object.values(obj);
 };
