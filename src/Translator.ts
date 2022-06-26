@@ -39,6 +39,8 @@ export class Translator {
   setLocale = (locale: string) => {
     if (!this.locales.includes(locale)) return;
     this.locale = locale;
+
+    return this.locale;
   };
 
   translate = (key: string, depth = 1) => {
