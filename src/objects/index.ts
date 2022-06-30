@@ -1,6 +1,8 @@
 import { looseObject } from "../interfaces";
 import { cloneDeep } from "../utils";
 
+export * from "./getDifference";
+
 export const assignDeep = (
   data: looseObject,
   { keys, value }: { keys: string[]; value: any }
