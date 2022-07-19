@@ -12,7 +12,7 @@ const getUnique = (list: any[]) => {
     }
   });
 
-  list = [...new Set(list)];
+  list = Array.from(new Set(list));
 
   list = list.map((dt) => {
     try {
