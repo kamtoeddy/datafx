@@ -10,7 +10,7 @@ const asArray: Fx = (list, determinant, options = { exclude: false }) => {
 
   return list.filter((dt) => {
     const [key, value] = determinant;
-    const dt_val = getDeepValue(dt, { key });
+    const dt_val = getDeepValue(dt, key);
 
     const allowed = isEqual(dt_val, value);
 
@@ -55,7 +55,7 @@ export const filterBy: Fx = (
   const { exclude } = options;
 
   return list.filter((dt) => {
-    let allowed = getDeepValue(dt, { key: determinant });
+    let allowed = getDeepValue(dt, determinant);
     return exclude ? !allowed : allowed;
   });
 };

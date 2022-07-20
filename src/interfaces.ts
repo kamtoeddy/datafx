@@ -1,3 +1,3 @@
-export interface looseObject {
+export interface ILooseObject {
   [key: string]: any;
 }

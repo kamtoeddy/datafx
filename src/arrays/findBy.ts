@@ -20,7 +20,7 @@ export const findBy: Fx = (
   if (Array.isArray(determinant))
     return list.find((dt) => {
       const [key, value] = determinant;
-      const dt_val = getDeepValue(dt, { key });
+      const dt_val = getDeepValue(dt, key);
 
       return isEqual(dt_val, value);
     });
@@ -32,5 +32,5 @@ export const findBy: Fx = (
       return isEqual(determinant, sub);
     });
 
-  return list.find((dt) => getDeepValue(dt, { key: determinant }));
+  return list.find((dt) => getDeepValue(dt, determinant));
 };

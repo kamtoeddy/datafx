@@ -1,12 +1,12 @@
-import { looseObject } from "../interfaces";
+import { ILooseObject } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-const useCount = (obj: looseObject, key: string) => {
+const useCount = (obj: ILooseObject, key: string) => {
   return obj[key] ? obj[key]++ : (obj[key] = 1);
 };
 
 const countInstances = (list: any[]) => {
-  const obj: looseObject = {};
+  const obj: ILooseObject = {};
 
   list.forEach((key) => useCount(obj, key));
 
@@ -21,9 +21,7 @@ export const countBy = (list: any[] = [], determinant?: any) => {
   const asFx = typeof determinant === "function";
 
   return list.reduce((prev, next) => {
-    const key = asFx
-      ? determinant(next)
-      : getDeepValue(next, { key: determinant });
+    const key = asFx ? determinant(next) : getDeepValue(next, determinant);
 
     if (key === undefined) return prev;
 

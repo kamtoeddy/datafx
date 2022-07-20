@@ -1,8 +1,8 @@
-import { looseObject } from "./interfaces";
+import { ILooseObject } from "./interfaces";
 import { getDeepValue } from "./objects";
 
 interface Translations {
-  [locale: string]: looseObject;
+  [locale: string]: ILooseObject;
 }
 
 export class Translator {
@@ -45,8 +45,8 @@ export class Translator {
 
   translate = (key: string, depth = 1) => {
     return (
-      getDeepValue(this.translations[this.locale], { key }) ??
-      getDeepValue(this.translations[this.fallback], { key }) ??
+      getDeepValue(this.translations[this.locale], key) ??
+      getDeepValue(this.translations[this.fallback], key) ??
       this.getAlternative(key, depth)
     );
   };

@@ -1,4 +1,4 @@
-import { looseObject } from "../interfaces";
+import { ILooseObject } from "../interfaces";
 import { getDeepValue } from "../objects";
 
 type options = { backwards?: boolean };
@@ -34,9 +34,9 @@ export const getUniqueBy = (
 
   if (!key) return getUnique(list);
 
-  let obj: looseObject = {};
+  let obj: ILooseObject = {};
 
-  list.forEach((dt) => (obj[getDeepValue(dt, { key })] = dt));
+  list.forEach((dt) => (obj[getDeepValue(dt, key)] = dt));
 
   return Object.values(obj);
 };

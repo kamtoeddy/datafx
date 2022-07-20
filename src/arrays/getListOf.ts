@@ -7,7 +7,7 @@ export const getListOf = (
   key: string,
   { unique }: options = { unique: false }
 ) => {
-  const _list = list.map((dt) => getDeepValue(dt, { key }));
+  const _list = list.map((dt) => getDeepValue(dt, key));
 
   return unique ? [...new Set(_list)] : _list;
 };
