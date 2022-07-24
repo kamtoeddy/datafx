@@ -20,8 +20,6 @@ export const capitalise = (value: string) => {
   return _capitalised;
 };
 
-export const cloneDeep = (data: any) => JSON.parse(JSON.stringify(data));
-
 export function isEqual(a: any, b: any) {
   const typeOf_a = typeof a;
   const typeOf_b = typeof b;

@@ -1,5 +1,4 @@
 import { ILooseObject } from "../interfaces";
-import { cloneDeep } from "../utils";
 
 export * from "./getDifference";
 
@@ -27,6 +26,8 @@ export const assignDeep = (
 
   return { ...data, [_key]: assignDeep(data[_key], { key, value }) };
 };
+
+export const cloneDeep = (data: any) => JSON.parse(JSON.stringify(data));
 
 export const getDeepValue = (data: ILooseObject, key: string): any => {
   return key.split(".").reduce((prev, next) => prev?.[next], data);

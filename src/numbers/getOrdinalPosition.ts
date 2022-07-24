@@ -1,4 +1,6 @@
 export const getOrdinalPosition = (value: number): number | string => {
+  if (isNaN(value)) return "";
+
   if (value === 1) return "st";
 
   if (value === 2) return "nd";
