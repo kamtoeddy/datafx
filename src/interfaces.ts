@@ -1,3 +1,1 @@
-export interface ILooseObject {
-  [key: string]: any;
-}
+export type ObjectType = Record<number | string, any>;

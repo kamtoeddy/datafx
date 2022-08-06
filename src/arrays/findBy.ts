@@ -1,14 +1,19 @@
+import { ObjectType } from "../interfaces";
 import { getDeepValue, getSubObject } from "../objects";
 import { isEqual } from "../utils";
 
-type options = { fromBack?: boolean };
+type FindByOptions = { fromBack?: boolean };
 
-type Fx = (list: any[], determinant: any, options?: options) => any[];
+type Fx = <T>(
+  list: T[],
+  determinant: any,
+  options?: FindByOptions
+) => T | undefined;
 
-export const findBy: Fx = (
-  list = [],
-  determinant,
-  options = { fromBack: false }
+export const findBy: Fx = <T>(
+  list: T[] = [],
+  determinant: any,
+  options: FindByOptions = { fromBack: false }
 ) => {
   const { fromBack } = options;
   const detType = typeof determinant;
@@ -20,17 +25,17 @@ export const findBy: Fx = (
   if (Array.isArray(determinant))
     return list.find((dt) => {
       const [key, value] = determinant;
-      const dt_val = getDeepValue(dt, key);
+      const dt_val = getDeepValue(dt as ObjectType, key);
 
       return isEqual(dt_val, value);
     });
 
   if (detType === "object")
     return list.find((dt) => {
-      const sub = getSubObject(dt, determinant);
+      const sub = getSubObject(dt as ObjectType, determinant);
 
       return isEqual(determinant, sub);
     });
 
-  return list.find((dt) => getDeepValue(dt, determinant));
+  return list.find((dt) => getDeepValue(dt as ObjectType, determinant));
 };

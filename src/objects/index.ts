@@ -1,17 +1,17 @@
-import { ILooseObject } from "../interfaces";
+import { ObjectType } from "../interfaces";
 
 export * from "./getDifference";
 
 const getKeys = (key: string | string[]) =>
   Array.isArray(key) ? key : key.split(".");
 
-const hasProp = (obj: ILooseObject | undefined = {}, prop = "") =>
+const hasProp = (obj: ObjectType | undefined = {}, prop = "") =>
   obj?.hasOwnProperty(prop);
 
 export const assignDeep = (
-  data: ILooseObject,
+  data: ObjectType,
   { key, value }: { key: string | string[]; value: any }
-): ILooseObject => {
+): ObjectType => {
   key = getKeys(key);
 
   const _key = key.shift();
@@ -29,12 +29,12 @@ export const assignDeep = (
 
 export const cloneDeep = (data: any) => JSON.parse(JSON.stringify(data));
 
-export const getDeepValue = (data: ILooseObject, key: string): any => {
+export const getDeepValue = (data: ObjectType, key: string): any => {
   return key.split(".").reduce((prev, next) => prev?.[next], data);
 };
 
-export const getSubObject = (obj: ILooseObject, sampleSub: ILooseObject) => {
-  const _obj: ILooseObject = {},
+export const getSubObject = (obj: ObjectType, sampleSub: ObjectType) => {
+  const _obj: ObjectType = {},
     keys = Object.keys(sampleSub);
 
   keys.forEach((key) => (_obj[key] = getDeepValue(obj, key)));
@@ -43,7 +43,7 @@ export const getSubObject = (obj: ILooseObject, sampleSub: ILooseObject) => {
 };
 
 export const hasDeepKey = (
-  obj: ILooseObject,
+  obj: ObjectType,
   key: string | string[]
 ): boolean => {
   key = getKeys(key);
@@ -62,9 +62,9 @@ export const hasDeepKey = (
 };
 
 export const removeDeep = (
-  obj: ILooseObject,
+  obj: ObjectType,
   key: string | string[]
-): ILooseObject => {
+): ObjectType => {
   key = getKeys(key);
 
   const _key = key.shift();
@@ -80,7 +80,7 @@ export const removeDeep = (
 };
 
 export const setDeepValue = (
-  data: ILooseObject,
+  data: ObjectType,
   { key, value }: { key: string; value: any }
 ) => {
   return assignDeep(cloneDeep(data), { key, value });

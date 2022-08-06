@@ -1,7 +1,7 @@
-import { ILooseObject } from "../interfaces";
+import { ObjectType } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-type options = { backwards?: boolean };
+type GetUniqueByOptions = { backwards?: boolean };
 
 const getUnique = (list: any[]) => {
   list = list.map((dt) => {
@@ -25,18 +25,18 @@ const getUnique = (list: any[]) => {
   return list;
 };
 
-export const getUniqueBy = (
-  list: any[],
+export const getUniqueBy = <T>(
+  list: T[],
   key?: string,
-  { backwards }: options = { backwards: false }
+  { backwards }: GetUniqueByOptions = { backwards: false }
 ) => {
   if (backwards) list = list.reverse();
 
-  if (!key) return getUnique(list);
+  if (!key) return getUnique(list) as T[];
 
-  let obj: ILooseObject = {};
+  let obj: ObjectType = {};
 
-  list.forEach((dt) => (obj[getDeepValue(dt, key)] = dt));
+  list.forEach((dt) => (obj[getDeepValue(dt as ObjectType, key)] = dt));
 
-  return Object.values(obj);
+  return Object.values(obj) as T[];
 };

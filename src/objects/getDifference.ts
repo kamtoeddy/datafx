@@ -1,10 +1,10 @@
-import { ILooseObject } from "../interfaces";
+import { ObjectType } from "../interfaces";
 import { isEqual } from "../utils";
 
-export const getDifference = (a: ILooseObject, b: ILooseObject) => {
+export const getDifference = (a: ObjectType, b: ObjectType) => {
   if (isEqual(a, b)) return {};
 
-  const diff: ILooseObject = {};
+  const diff: ObjectType = {};
 
   for (let key in a) {
     if (isEqual(a[key], b[key])) continue;
