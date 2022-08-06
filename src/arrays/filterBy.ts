@@ -1,16 +1,21 @@
+import { ObjectType } from "../interfaces";
 import { getDeepValue, getSubObject } from "../objects";
 import { isEqual } from "../utils";
 
-type options = { exclude?: boolean };
+type FilterByOptions = { exclude?: boolean };
 
-type Fx = (list: any[], determinant: any, options?: options) => any[];
+type Fx = <T>(list: T[], determinant: any, options?: FilterByOptions) => T[];
 
-const asArray: Fx = (list, determinant, options = { exclude: false }) => {
+const asArray: Fx = <T>(
+  list: T[],
+  determinant: any,
+  options: FilterByOptions = { exclude: false }
+) => {
   const { exclude } = options;
 
   return list.filter((dt) => {
     const [key, value] = determinant;
-    const dt_val = getDeepValue(dt, key);
+    const dt_val = getDeepValue(dt as ObjectType, key);
 
     const allowed = isEqual(dt_val, value);
 
@@ -18,7 +23,11 @@ const asArray: Fx = (list, determinant, options = { exclude: false }) => {
   });
 };
 
-const asFunction: Fx = (list, determinant, options = { exclude: false }) => {
+const asFunction: Fx = <T>(
+  list: T[],
+  determinant: any,
+  options: FilterByOptions = { exclude: false }
+) => {
   const { exclude } = options;
 
   return list.filter((dt) => {
@@ -27,11 +36,15 @@ const asFunction: Fx = (list, determinant, options = { exclude: false }) => {
   });
 };
 
-const asObject: Fx = (list, determinant, options = { exclude: false }) => {
+const asObject: Fx = <T>(
+  list: T[],
+  determinant: any,
+  options: FilterByOptions = { exclude: false }
+) => {
   const { exclude } = options;
 
   return list.filter((dt) => {
-    const sub = getSubObject(dt, determinant);
+    const sub = getSubObject(dt as ObjectType, determinant);
 
     let allowed = isEqual(determinant, sub);
 
@@ -39,10 +52,10 @@ const asObject: Fx = (list, determinant, options = { exclude: false }) => {
   });
 };
 
-export const filterBy: Fx = (
-  list,
-  determinant,
-  options = { exclude: false }
+export const filterBy: Fx = <T>(
+  list: T[],
+  determinant: any,
+  options: FilterByOptions = { exclude: false }
 ) => {
   const detType = typeof determinant;
 
@@ -55,7 +68,7 @@ export const filterBy: Fx = (
   const { exclude } = options;
 
   return list.filter((dt) => {
-    let allowed = getDeepValue(dt, determinant);
+    let allowed = getDeepValue(dt as ObjectType, determinant);
     return exclude ? !allowed : allowed;
   });
 };

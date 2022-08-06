@@ -11,12 +11,12 @@ const asObject = (list: any[], key: string, order?: string) => {
   });
 };
 
-export const sortBy = (list: any[], determinant?: any, order?: string) => {
-  if (!determinant) return list.sort((a, b) => (a < b ? -1 : 1));
+export const sortBy = <T>(list: T[], determinant?: any, order?: string) => {
+  if (!determinant) return list.sort((a, b) => (a < b ? -1 : 1)) as T[];
 
   const detType = typeof determinant;
 
-  if (detType === "function") return list.sort(determinant);
+  if (detType === "function") return list.sort(determinant) as T[];
 
-  return asObject(list, determinant, order);
+  return asObject(list, determinant, order) as T[];
 };

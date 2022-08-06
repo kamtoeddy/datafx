@@ -1,7 +1,7 @@
-import { ILooseObject } from "../interfaces";
+import { ObjectType } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-export const groupBy = (list: ILooseObject[] = [], determinant: any) => {
+export const groupBy = (list: ObjectType[] = [], determinant: any) => {
   if (!list) return [];
 
   const asFx = typeof determinant === "function";

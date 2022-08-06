@@ -1,9 +1,11 @@
 {
   "author": "",
-  "name": "datafx",
-  "version": "0.0.14",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "devDependencies": {
+    "@types/jest": "^28.1.6",
+    "jest": "^28.1.3",
+    "ts-jest": "^28.0.7",
+    "typescript": "^4.7.4"
+  },
   "files": [
     "lib/**/*"
   ],
@@ -17,16 +19,14 @@
       "node_modules/(?!variables/.*)"
     ]
   },
+  "license": "MIT",
+  "main": "lib/index.js",
+  "name": "datafx",
   "scripts": {
     "build": "tsc",
     "prepare": "npm run build",
-    "test": "jest --watchAll"
+    "test": "tsc & jest --watchAll"
   },
-  "license": "MIT",
-  "devDependencies": {
-    "@types/jest": "^28.1.6",
-    "jest": "^28.1.3",
-    "ts-jest": "^28.0.7",
-    "typescript": "^4.7.4"
-  }
+  "types": "lib/index.d.ts",
+  "version": "0.0.15"
 }

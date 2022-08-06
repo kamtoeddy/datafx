@@ -1,12 +1,12 @@
-import { ILooseObject } from "../interfaces";
+import { ObjectType } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-const useCount = (obj: ILooseObject, key: string) => {
+const useCount = (obj: ObjectType, key: string) => {
   return obj[key] ? obj[key]++ : (obj[key] = 1);
 };
 
 const countInstances = (list: any[]) => {
-  const obj: ILooseObject = {};
+  const obj: ObjectType = {};
 
   list.forEach((key) => useCount(obj, key));
 
@@ -26,5 +26,5 @@ export const countBy = (list: any[] = [], determinant?: any) => {
     if (key === undefined) return prev;
 
     return useCount(prev, key);
-  }, {});
+  }, {}) as ObjectType;
 };

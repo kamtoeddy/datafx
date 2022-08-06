@@ -1,8 +1,8 @@
-import { ILooseObject } from "./interfaces";
+import { ObjectType } from "./interfaces";
 import { getDeepValue } from "./objects";
 
 interface Translations {
-  [locale: string]: ILooseObject;
+  [locale: string]: ObjectType;
 }
 
 export class Translator {

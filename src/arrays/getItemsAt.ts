@@ -1,5 +1,5 @@
-export const getItemsAt = (
-  list: any[],
+export const getItemsAt = <T>(
+  list: T[],
   start = 0,
   end?: number | undefined
 ) => {
