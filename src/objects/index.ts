@@ -24,6 +24,8 @@ export const assignDeep = (
     return data;
   }
 
+  if (data?.[_key]) data[_key] = {};
+
   return { ...data, [_key]: assignDeep(data[_key], { key, value }) };
 };
 
