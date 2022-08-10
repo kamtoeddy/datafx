@@ -4,14 +4,17 @@
     "@types/jest": "^28.1.6",
     "jest": "^28.1.3",
     "ts-jest": "^28.0.7",
-    "typescript": "^4.7.4"
+    "typescript": "^4.6.2"
   },
   "files": [
-    "lib/**/*"
+    "dist/**/*"
   ],
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node",
+    "testMatch": [
+      "**/__tests__/**/(*.)+(test).(ts|js)"
+    ],
     "transform": {
       "node_modules/variables/.+\\.(j|t)sx?$": "ts-jest"
     },
@@ -19,14 +22,15 @@
       "node_modules/(?!variables/.*)"
     ]
   },
-  "license": "MIT",
-  "main": "lib/index.js",
+  "license": "ISC",
+  "main": "dist/index.js",
   "name": "datafx",
   "scripts": {
     "build": "tsc",
-    "prepare": "npm run build",
-    "test": "tsc & jest --watchAll"
+    "test": "tsc & jest --verbose --watchAll",
+    "test:ci": "tsc & jest --verbose",
+    "prepare": "npm run build"
   },
-  "types": "lib/index.d.ts",
-  "version": "0.0.16"
+  "types": "dist/index.d.ts",
+  "version": "0.0.17"
 }

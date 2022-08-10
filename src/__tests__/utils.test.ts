@@ -1,4 +1,4 @@
-import { capitalise, isEqual, useIfFalsy } from "../../utils";
+import { capitalise, isEqual, useIfFalsy } from "../utils";
 
 describe("Capitalize", () => {
   it("should return a string in capital leters", () => {
