@@ -4,4 +4,4 @@ export * from "./getRandom";
 export * from "./isDivisibleBy";
 export * from "./isEven";
 export * from "./isPrime";
-export * from "./getInteger";
+export * from "./toInteger";
