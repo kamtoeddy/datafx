@@ -5,8 +5,6 @@ describe("isAfter", () => {
     expect(isAfter("06-07-2021", "05-07-2020")).toBe(true);
     expect(isAfter("06-07-2021", "07-07-2021")).toBe(false);
 
-    console.log(add("08-10-2021 10:30:00", -1, "y"));
-
     expect(isAfter("07-08-2021", "07-07-2021")).toBe(true);
     expect(isAfter("12-08-2021", "12-07-2021", 23 * 60)).toBe(true);
     expect(isAfter("12-08-2021", "12-07-2021", 24 * 60)).toBe(false);
