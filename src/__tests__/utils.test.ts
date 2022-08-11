@@ -1,4 +1,4 @@
-import { capitalise, isEqual, useIfFalsy } from "../utils";
+import { capitalise, isEqual, useIf } from "../utils";
 
 describe("Capitalize", () => {
   it("should return a string in capital leters", () => {
@@ -33,8 +33,8 @@ describe("Is Equal", () => {
 
 describe("Use if falsy", () => {
   it("should return a string in capital leters", () => {
-    expect(useIfFalsy(1, 0)).toBe(1);
-    expect(useIfFalsy(false, undefined)).toBe(false);
-    expect(useIfFalsy("It is NaN", "-", isNaN)).toBe("It is NaN");
+    expect(useIf(1, 0)).toBe(1);
+    expect(useIf(false, undefined)).toBe(false);
+    expect(useIf("It is NaN", "-", isNaN)).toBe("It is NaN");
   });
 });

@@ -1,4 +1,4 @@
-import { secondsToTime } from "./time/secondsToTime";
+import { secondsToTime } from "./dates/secondsToTime";
 
 const capitaliseOne = (word = "") => {
   return word[0].toUpperCase() + word.slice(1).toLowerCase();
@@ -55,7 +55,7 @@ export function prettyTime(ms: number) {
   return result.trim() || "00m";
 }
 
-export const useIfFalsy = (
+export const useIf = (
   alternate: any,
   v: any,
   determinant?: (v: any) => boolean
