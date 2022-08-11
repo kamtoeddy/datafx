@@ -5,12 +5,24 @@ export * from "./getTimeLeft";
 export * from "./secondsToTime";
 
 export type DateType = Date | string;
+type DateTuple = [number, DateTimeUnit];
 
 export const getDateString = (value = new Date()) =>
   new Date(value).toISOString().substring(0, 10);
 
-export function add(date: DateType, value: number, unit: DateTimeUnit) {
-  return new Date(new Date(date).getTime() + getMilliseconds(value, unit));
+export function add(date: DateType, ...args: DateTuple | DateTuple[]) {
+  const _units: DateTuple[] = Array.isArray(args?.[0])
+    ? (args as DateTuple[])
+    : ([args] as DateTuple[]);
+
+  const ms: number = _units.reduce(
+    (total: number, [value, unit]: DateTuple) => {
+      return (total += getMilliseconds(value, unit));
+    },
+    0
+  );
+
+  return new Date(new Date(date).getTime() + ms);
 }
 
 export function isAfter(
