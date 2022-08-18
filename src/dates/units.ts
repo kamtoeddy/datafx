@@ -1,11 +1,11 @@
-export type Year = "y" | "Y";
-export type Month = "mo" | "M";
-export type Week = "w" | "W";
-export type Day = "d" | "D";
-export type Hour = "h" | "H";
-export type Minute = "m";
-export type Second = "s";
-export type Millisecond = "ms";
+export type Year = "y" | "Y" | "year" | "years";
+export type Month = "mo" | "M" | "month" | "months";
+export type Week = "w" | "W" | "week" | "weeks";
+export type Day = "d" | "D" | "day" | "days";
+export type Hour = "h" | "H" | "hour" | "hours";
+export type Minute = "m" | "minute" | "minutes";
+export type Second = "s" | "second" | "seconds";
+export type Millisecond = "ms" | "millisecond" | "milliseconds";
 
 export type DateTimeUnit =
   | Year
