@@ -6,8 +6,14 @@ describe("isAfter", () => {
     expect(isAfter("06-07-2021", "07-07-2021")).toBe(false);
 
     expect(isAfter("07-08-2021", "07-07-2021")).toBe(true);
-    expect(isAfter("12-08-2021", "12-07-2021", 23 * 60)).toBe(true);
-    expect(isAfter("12-08-2021", "12-07-2021", 24 * 60)).toBe(false);
+    expect(isAfter("12-08-2021", "12-07-2021", 23, "m")).toBe(true);
+    expect(isAfter("12-08-2021", "12-07-2021", 24, "m")).toBe(true);
+    expect(isAfter("12-08-2021", "12-07-2021", 23, "h")).toBe(true);
+    expect(isAfter("12-08-2021", "12-07-2021", [23, "h"], [5, "m"])).toBe(true);
+    expect(isAfter("12-08-2021", "12-07-2021", [23, "h"], [60, "m"])).toBe(
+      false
+    );
+    expect(isAfter("12-08-2021", "12-07-2021", 24, "h")).toBe(false);
   });
 });
 
