@@ -1,4 +1,4 @@
-import { sortBy } from "../../arrays";
+import { sortBy } from "../../../dist";
 
 const arrays = [
   [11, 4, 6, 3, 7],

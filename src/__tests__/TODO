@@ -1,0 +1,10 @@
+console.log(getItemsAt(users, 1, 2));
+console.log(findBy(users, { name: "James" }, { fromBack: true }));
+console.log(getTimeLeft(new Date()));
+console.log();
+
+console.log(parseInt(`${position}`));
+console.log(`${position}${getOrdinalPosition(position)}`);
+
+console.log(removeDeep(users[3], "a.age"));
+console.log(getUniqueBy(["one", "two", "three"], "length")); // { '3': ['one', 'two'], '5': ['three'] }

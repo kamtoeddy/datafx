@@ -1,13 +1,14 @@
+import { ObjectType } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-type options = { unique?: boolean };
+type Options = { unique?: boolean };
 
-export const getListOf = <T>(
+export const getListOf = <T = any>(
   list: any[],
   key: string,
-  { unique }: options = { unique: false }
+  { unique }: Options = { unique: false }
 ): T[] => {
-  const _list = list.map((dt) => getDeepValue(dt, key));
+  const _list = list.map((dt) => getDeepValue(dt as ObjectType, key));
 
-  return unique ? [...new Set(_list)] : _list;
+  return unique ? Array.from(new Set(_list)) : _list;
 };
