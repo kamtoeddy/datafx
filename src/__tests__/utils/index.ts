@@ -5,16 +5,23 @@ export const capitalise_Tests = ({ capitalise }: { capitalise: Function }) => {
       expect(capitalise("a doG")).toBe("A Dog");
       expect(capitalise("a-doG")).toBe("A-dog");
     });
+
+    it("should return a same value if it's not a string or is empty", () => {
+      const values = [null, undefined, [], 1, "  ", ""];
+
+      for (const value of values) expect(capitalise(value)).toBe(value);
+    });
   });
 };
 
 export const isEqual_Tests = ({ isEqual }: { isEqual: Function }) => {
-  describe("Is Equal", () => {
+  describe("isEqual", () => {
     it("should return true if a and b are equal else false", () => {
       // truthy
       expect(isEqual(1, 1)).toEqual(true);
       expect(isEqual({}, {})).toEqual(true);
       expect(isEqual([], [])).toEqual(true);
+      expect(isEqual(undefined, undefined)).toEqual(true);
       expect(isEqual([1, "true", [], null], [1, "true", [], null])).toEqual(
         true
       );
