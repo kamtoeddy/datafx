@@ -7,8 +7,8 @@ const capitaliseOne = (word = "") => {
 export const capitalise = (value: string) => {
   if (typeof value !== "string") return value;
 
-  value = value.trim();
-  if (value === "") return value;
+  const _value = value;
+  if (!_value.trim()) return value;
 
   let _capitalised = "";
 
