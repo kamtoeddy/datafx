@@ -3,26 +3,20 @@ import { getDeepValue } from "../objects";
 
 type GetUniqueByOptions = { backwards?: boolean };
 
-const getUnique = (list: any[]) => {
-  list = list.map((dt) => {
-    try {
-      return JSON.stringify(dt);
-    } catch (err) {
-      return dt;
-    }
-  });
+export const serialize = (dt: any, revert = false) => {
+  try {
+    return revert ? JSON.parse(dt) : JSON.stringify(dt);
+  } catch (err) {
+    return dt;
+  }
+};
 
-  list = Array.from(new Set(list));
+export const getUnique = <T>(list: T[]) => {
+  let _list = list.map((dt) => serialize(dt));
 
-  list = list.map((dt) => {
-    try {
-      return JSON.parse(dt);
-    } catch (err) {
-      return dt;
-    }
-  });
+  _list = Array.from(new Set(_list));
 
-  return list;
+  return _list.map((dt) => serialize(dt, true));
 };
 
 export const getUniqueBy = <T>(
@@ -30,13 +24,15 @@ export const getUniqueBy = <T>(
   key?: string,
   { backwards }: GetUniqueByOptions = { backwards: false }
 ) => {
-  if (backwards) list = list.reverse();
+  let _list = Array.from(list);
 
-  if (!key) return getUnique(list) as T[];
+  if (backwards) _list = _list.reverse();
+
+  if (!key) return getUnique(_list) as T[];
 
   let obj: ObjectType = {};
 
-  list.forEach((dt) => (obj[getDeepValue(dt as ObjectType, key)] = dt));
+  _list.forEach((dt) => (obj[getDeepValue(dt as ObjectType, key)] = dt));
 
   return Object.values(obj) as T[];
 };

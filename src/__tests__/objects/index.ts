@@ -70,7 +70,7 @@ export const getDeepValue_Tests = ({
   });
 };
 
-const getUnique_Tests = ({ getUnique }: { getUnique: Function }) => {
+export const getUnique_Tests = ({ getUnique }: { getUnique: Function }) => {
   describe("getUnique", () => {
     it("should return an array of unique values", () => {
       const values = [
@@ -89,7 +89,11 @@ const getUnique_Tests = ({ getUnique }: { getUnique: Function }) => {
   });
 };
 
-const getUniqueBy_Tests = ({ getUniqueBy }: { getUniqueBy: Function }) => {
+export const getUniqueBy_Tests = ({
+  getUniqueBy,
+}: {
+  getUniqueBy: Function;
+}) => {
   describe("getUniqueBy", () => {
     it("should return an array of unique values without a key", () => {
       const values = [
@@ -112,10 +116,18 @@ const getUniqueBy_Tests = ({ getUniqueBy }: { getUniqueBy: Function }) => {
       expect(getUniqueBy(values, "name").length).toBe(2);
       expect(getUniqueBy(values, "age").length).toBe(1);
     });
+
+    it("should respect the backwards option", () => {
+      const values = [1, 2, 4, 74, 40, -34, 0, 10];
+
+      expect(getUniqueBy(values, undefined, { backwards: true })).toEqual(
+        [...values].reverse()
+      );
+    });
   });
 };
 
-const serialize_Tests = ({ serialize }: { serialize: Function }) => {
+export const serialize_Tests = ({ serialize }: { serialize: Function }) => {
   describe("serialize", () => {
     it("should convert values to json strings", () => {
       const truthy = [
