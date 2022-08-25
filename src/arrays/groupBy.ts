@@ -5,7 +5,7 @@ type GroupedMap<T> = {
   [key: number | string]: T[];
 };
 
-export const groupBy = <T>(list: T[] = [], determinant: any) => {
+export const groupBy = <T>(list: T[], determinant: any) => {
   if (!list) return {} as GroupedMap<T>;
 
   const asFx = typeof determinant === "function";

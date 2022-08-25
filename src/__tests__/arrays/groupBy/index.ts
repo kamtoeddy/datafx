@@ -2,6 +2,10 @@ import { users } from "../test-data";
 
 export const groupBy_Tests = ({ groupBy }: { groupBy: Function }) => {
   describe("groupBy", () => {
+    it("should return an empty object with no array", () => {
+      expect(groupBy()).toMatchObject({});
+    });
+
     it("should group with a string property", () => {
       const groupedByName = groupBy(users, "name");
 
