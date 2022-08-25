@@ -36,7 +36,7 @@ export function isEqual(a: any, b: any) {
     ref_b = JSON.stringify(ref_b);
   }
 
-  return ref_a === ref_b;
+  return ref_a == ref_b;
 }
 
 export function setPadStart(str: string | number = "", num = 2, symbol = "0") {
