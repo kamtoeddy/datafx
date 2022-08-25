@@ -2,6 +2,10 @@ import { users } from "../test-data";
 
 export const countBy_Tests = ({ countBy }: { countBy: Function }) => {
   describe("countBy", () => {
+    it("should return an empty array if no list is provided", () => {
+      expect(countBy()).toMatchObject([]);
+    });
+
     it("should count with any type", () => {
       const counted = countBy([
         null,
