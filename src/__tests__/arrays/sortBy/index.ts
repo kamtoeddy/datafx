@@ -1,3 +1,4 @@
+import { users } from "../test-data";
 const arrays = [
   [11, 4, 6, 3, 7],
   ["2", "4t", "hey"],
@@ -33,6 +34,24 @@ export const sortBy_Tests = ({ sortBy }: { sortBy: Function }) => {
       expect(sorted[1]).toStrictEqual({ name: "Doe" });
       expect(sorted[2]).toStrictEqual({ name: "James" });
       expect(sorted[3]).toStrictEqual({ name: "Mary" });
+    });
+
+    it("should sort by key of objects in array", () => {
+      const sorted = sortBy(users, "name");
+
+      expect(sorted[0]).toMatchObject({ id: 1, name: "James" });
+      expect(sorted[1]).toMatchObject({ id: 1, name: "James" });
+      expect(sorted[2]).toMatchObject({ id: 2, name: "Mary" });
+      expect(sorted[3]).toMatchObject({ id: 3, name: "Peter" });
+    });
+
+    it("should sort by nested key of objects in array", () => {
+      const sorted = sortBy(users, "bio.facebook.displayName");
+
+      expect(sorted[0].bio.facebook.displayName).toBe("james-1");
+      expect(sorted[1].bio.facebook.displayName).toBe("james-2");
+      expect(sorted[2].bio.facebook.displayName).toBe("mary-jane");
+      expect(sorted[3].bio.facebook.displayName).toBe("mr_p");
     });
   });
 };
