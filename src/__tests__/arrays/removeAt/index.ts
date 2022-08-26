@@ -5,6 +5,8 @@ export const removeAt_Tests = ({ removeAt }: { removeAt: Function }) => {
     it("should remove items at specified indices", () => {
       const values = [
         [[...arr], 0, 1, [2, 3, 4, 5, -45]],
+        [[...arr], 0, undefined, [2, 3, 4, 5, -45]],
+        [[...arr], undefined, undefined, [2, 3, 4, 5, -45]],
         [[...arr], 1, 3, [1, 5, -45]],
         [[...arr], 4, 5, [1, 2, 3, 4]],
       ];
