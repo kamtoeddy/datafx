@@ -2,7 +2,7 @@ import { users } from "../test-data";
 
 export const findBy_Tests = ({ findBy }: { findBy: Function }) => {
   describe("findBy", () => {
-    it("should find with an object determinant", () => {
+    it("should find by object determinant", () => {
       const determinants = [{ age: 10 }, { id: 1 }, { name: "James" }];
       for (const determinant of determinants)
         expect(findBy(users, determinant)).toMatchObject(users[0]);
@@ -12,7 +12,7 @@ export const findBy_Tests = ({ findBy }: { findBy: Function }) => {
       );
     });
 
-    it("should find with an object determinant with nested keys", () => {
+    it("should find by object determinant with nested keys", () => {
       const determinants = [
         { "bio.facebook.displayName": "mary-jane" },
         { age: 11, "bio.facebook.displayName": "mary-jane" },
@@ -22,7 +22,7 @@ export const findBy_Tests = ({ findBy }: { findBy: Function }) => {
         expect(findBy(users, determinant)).toMatchObject(users[1]);
     });
 
-    it("should find with an array determinant", () => {
+    it("should find by array determinant", () => {
       const determinants = [
         ["age", 11],
         ["id", 2],
@@ -32,6 +32,26 @@ export const findBy_Tests = ({ findBy }: { findBy: Function }) => {
 
       for (const determinant of determinants)
         expect(findBy(users, determinant)).toMatchObject(users[1]);
+    });
+
+    it("should find by function determinant", () => {
+      const determinants = [
+        [(dt: any) => dt.id === 1, users[0]],
+        [(dt: any) => dt.name === "Mary", users[1]],
+      ];
+
+      for (const [det, value] of determinants)
+        expect(findBy(users, det)).toMatchObject(value);
+    });
+
+    it("should respect `fromBack` option", () => {
+      const determinants = [
+        [(dt: any) => dt.id === 1, users[3]],
+        [(dt: any) => dt.name === "Mary", users[1]],
+      ];
+
+      for (const [det, value] of determinants)
+        expect(findBy(users, det, { fromBack: true })).toMatchObject(value);
     });
   });
 };
