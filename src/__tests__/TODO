@@ -1,1 +1,0 @@
-console.log(removeDeep(users[3], "a.age"));

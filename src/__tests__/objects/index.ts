@@ -184,3 +184,42 @@ export const hasDeepKey_Tests = ({ hasDeepKey }: { hasDeepKey: Function }) => {
     });
   });
 };
+
+export const removeDeep_Tests = ({ removeDeep }: { removeDeep: Function }) => {
+  describe("removeDeep", () => {
+    let user: any;
+
+    beforeEach(() => {
+      user = {
+        name: "James",
+        bio: {
+          facebook: { displayName: "james-1" },
+          twitter: { followers: "25k" },
+        },
+      };
+    });
+
+    it("should not modify object if key is missing", () => {
+      removeDeep(user, "age");
+      removeDeep(user, "bio.instagram");
+      expect(user).toMatchObject(user);
+    });
+
+    it("should remove a simple key", () => {
+      removeDeep(user, "age");
+      expect(user).toMatchObject(user);
+      expect(user).toMatchObject({
+        bio: {
+          facebook: { displayName: "james-1" },
+          twitter: { followers: "25k" },
+        },
+      });
+    });
+
+    it("should remove a nested key", () => {
+      removeDeep(user, "bio.facebook.displayName");
+      removeDeep(user, "bio.twitter");
+      expect(user).toMatchObject({ bio: { facebook: {} } });
+    });
+  });
+};

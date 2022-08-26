@@ -4,6 +4,7 @@ import {
   getDifference_Tests,
   getSubObject_Tests,
   hasDeepKey_Tests,
+  removeDeep_Tests,
 } from ".";
 import {
   assignDeep,
@@ -11,6 +12,7 @@ import {
   getDifference,
   getSubObject,
   hasDeepKey,
+  removeDeep,
 } from "../../";
 
 assignDeep_Tests({ assignDeep });
@@ -18,3 +20,4 @@ getDeepValue_Tests({ getDeepValue });
 getDifference_Tests({ getDifference });
 getSubObject_Tests({ getSubObject });
 hasDeepKey_Tests({ hasDeepKey });
+removeDeep_Tests({ removeDeep });
