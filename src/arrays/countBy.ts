@@ -15,7 +15,7 @@ const countInstances = (list: any[]) => {
   return obj;
 };
 
-export const countBy = (list: any[] = [], determinant?: any) => {
+export const countBy = (list: any[], determinant?: any) => {
   if (!list) return [];
 
   if (!determinant) return countInstances(list);

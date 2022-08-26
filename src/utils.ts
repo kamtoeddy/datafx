@@ -1,14 +1,14 @@
 import { secondsToTime } from "./dates/secondsToTime";
 
-const capitaliseOne = (word = "") => {
+const capitaliseOne = (word: string) => {
   return word[0].toUpperCase() + word.slice(1).toLowerCase();
 };
 
 export const capitalise = (value: string) => {
   if (typeof value !== "string") return value;
 
-  value = value.trim();
-  if (value === "") return value;
+  const _value = value;
+  if (!_value.trim()) return value;
 
   let _capitalised = "";
 
@@ -36,11 +36,7 @@ export function isEqual(a: any, b: any) {
     ref_b = JSON.stringify(ref_b);
   }
 
-  return ref_a === ref_b;
-}
-
-export function setPadStart(str: string | number = "", num = 2, symbol = "0") {
-  return String(str).padStart(num, symbol);
+  return ref_a == ref_b;
 }
 
 export function prettyTime(ms: number) {
@@ -54,6 +50,12 @@ export function prettyTime(ms: number) {
 
   return result.trim() || "00m";
 }
+
+export function setPadStart(str: string | number = "", num = 2, symbol = "0") {
+  return String(str).padStart(num, symbol);
+}
+
+export const toArray = (data: any) => (Array.isArray(data) ? data : [data]);
 
 export const useIf = (
   alternate: any,

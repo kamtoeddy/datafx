@@ -29,9 +29,10 @@
   "scripts": {
     "build": "tsc",
     "test": "tsc & jest --watchAll",
+    "test-c": "tsc & jest --watchAll --coverage",
     "test:ci": "tsc & jest",
     "prepare": "npm run build"
   },
   "types": "dist/index.d.ts",
-  "version": "0.0.20"
+  "version": "0.1.0"
 }
