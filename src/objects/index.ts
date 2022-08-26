@@ -9,6 +9,9 @@ const getKeys = (key: string | string[]) =>
 const hasProp = (obj: ObjectType | undefined = {}, prop = "") =>
   obj?.hasOwnProperty(prop);
 
+export const isDeepKeyed = (obj: ObjectType) =>
+  Object.keys(obj).some((key) => key.split(".").length > 1);
+
 export const assignDeep = (
   data: ObjectType,
   { key, value }: { key: string | string[]; value: any }

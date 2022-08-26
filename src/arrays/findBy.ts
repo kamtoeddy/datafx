@@ -1,5 +1,10 @@
 import { ObjectType } from "../interfaces";
-import { getDeepValue, getSubObject } from "../objects";
+import {
+  assignDeep,
+  getDeepValue,
+  getSubObject,
+  isDeepKeyed,
+} from "../objects";
 import { isEqual } from "../utils";
 
 type FindByOptions = { fromBack?: boolean };
@@ -30,10 +35,19 @@ export const findBy: Fx = <T>(
       return isEqual(dt_val, value);
     });
 
-  if (detType === "object")
-    return list.find((dt) => {
-      const sub = getSubObject(dt as ObjectType, Object.keys(determinant));
+  return list.find((dt) => {
+    const keys = Object.keys(determinant);
 
-      return isEqual(sub, determinant);
-    });
+    const sub = getSubObject(dt as ObjectType, keys);
+
+    if (!isDeepKeyed(determinant)) return isEqual(sub, determinant);
+
+    const determinantObject = {};
+
+    keys.forEach((key) =>
+      assignDeep(determinantObject, { key, value: determinant[key] })
+    );
+
+    return isEqual(sub, determinantObject);
+  });
 };

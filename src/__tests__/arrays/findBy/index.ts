@@ -12,15 +12,15 @@ export const findBy_Tests = ({ findBy }: { findBy: Function }) => {
       );
     });
 
-    // it("should find with an object determinant with nested keys", () => {
-    //   const determinants = [
-    //     {"bio.facebook.displayName": "mary-jane"},
-    //     { age: 10, "bio.facebook.displayName": "mary-jane" },
-    //   ];
+    it("should find with an object determinant with nested keys", () => {
+      const determinants = [
+        { "bio.facebook.displayName": "mary-jane" },
+        { age: 11, "bio.facebook.displayName": "mary-jane" },
+      ];
 
-    //   for (const determinant of determinants)
-    //     expect(findBy(users, determinant)).toMatchObject(users[1]);
-    // });
+      for (const determinant of determinants)
+        expect(findBy(users, determinant)).toMatchObject(users[1]);
+    });
 
     it("should find with an array determinant", () => {
       const determinants = [
