@@ -44,7 +44,7 @@ const asObject: Fx = <T>(
   const { exclude } = options;
 
   return list.filter((dt) => {
-    const sub = getSubObject(dt as ObjectType, determinant);
+    const sub = getSubObject(dt as ObjectType, Object.keys(determinant));
 
     let allowed = isEqual(determinant, sub);
 

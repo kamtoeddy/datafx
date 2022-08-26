@@ -39,10 +39,6 @@ export function isEqual(a: any, b: any) {
   return ref_a == ref_b;
 }
 
-export function setPadStart(str: string | number = "", num = 2, symbol = "0") {
-  return String(str).padStart(num, symbol);
-}
-
 export function prettyTime(ms: number) {
   const { days, hours, minutes } = secondsToTime(ms);
 
@@ -54,6 +50,12 @@ export function prettyTime(ms: number) {
 
   return result.trim() || "00m";
 }
+
+export function setPadStart(str: string | number = "", num = 2, symbol = "0") {
+  return String(str).padStart(num, symbol);
+}
+
+export const toArray = (data: any) => (Array.isArray(data) ? data : [data]);
 
 export const useIf = (
   alternate: any,

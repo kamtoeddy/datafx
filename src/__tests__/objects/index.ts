@@ -1,3 +1,40 @@
+export const assignDeep_Tests = ({ assignDeep }: { assignDeep: Function }) => {
+  describe("assignDeep", () => {
+    it("should assign a value to a simple key", () => {
+      expect(assignDeep({}, { key: "name", value: "James" })).toEqual({
+        name: "James",
+      });
+
+      expect(
+        assignDeep({ age: 17, name: "Paul" }, { key: "name", value: "James" })
+      ).toEqual({ age: 17, name: "James" });
+    });
+
+    it("should assign a value to a nested key", () => {
+      let dt = assignDeep(
+        {},
+        { key: "bio.facebook.displayName", value: "james-1" }
+      );
+      assignDeep(dt, { key: "bio.facebook.followers", value: "12.7k" });
+
+      expect(dt).toEqual({
+        bio: { facebook: { displayName: "james-1", followers: "12.7k" } },
+      });
+
+      let dt2 = assignDeep(
+        { name: "James" },
+        { key: "bio.facebook.displayName", value: "james-1" }
+      );
+      assignDeep(dt2, { key: "bio.facebook.followers", value: "13.7k" });
+
+      expect(dt2).toEqual({
+        name: "James",
+        bio: { facebook: { displayName: "james-1", followers: "13.7k" } },
+      });
+    });
+  });
+};
+
 export const getDifference_Tests = ({
   getDifference,
 }: {
@@ -66,6 +103,56 @@ export const getDeepValue_Tests = ({
 
     it("should give undefined if nested key is not set", () => {
       expect(getDeepValue(person, "address.streetName")).toBe(undefined);
+    });
+  });
+};
+
+export const getSubObject_Tests = ({
+  getSubObject,
+}: {
+  getSubObject: Function;
+}) => {
+  const user = {
+    id: 1,
+    name: "James",
+    age: 10,
+    bio: {
+      facebook: {
+        displayName: "james-1",
+        followers: 0,
+        link: "/facebook/james",
+      },
+    },
+  };
+
+  describe("getSubObject", () => {
+    it("should return a sub version of an object with properties requested", () => {
+      const values = [
+        ["name", { name: "James" }],
+        [["name"], { name: "James" }],
+        [["age", "name"], { age: 10, name: "James" }],
+      ];
+
+      for (const [det, value] of values)
+        expect(getSubObject(user, det)).toEqual(value);
+    });
+
+    it("should return a sub version of an object with nested properties requested", () => {
+      const values = [
+        [
+          "bio.facebook",
+          {
+            displayName: "james-1",
+            followers: 0,
+            link: "/facebook/james",
+          },
+        ],
+        // [["name"], { name: "James" }],
+        // [["age", "name"], { age: 10, name: "James" }],
+      ];
+
+      // for (const [det, value] of values)
+      //   expect(getSubObject(user, det)).toEqual(value);
     });
   });
 };

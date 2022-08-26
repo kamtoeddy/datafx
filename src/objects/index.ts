@@ -1,4 +1,5 @@
 import { ObjectType } from "../interfaces";
+import { toArray } from "../utils";
 
 export * from "./getDifference";
 
@@ -24,9 +25,12 @@ export const assignDeep = (
     return data;
   }
 
-  if (data?.[_key]) data[_key] = {};
+  if (!data?.[_key]) data[_key] = {};
 
-  return { ...data, [_key]: assignDeep(data[_key], { key, value }) };
+  return {
+    ...data,
+    [_key]: assignDeep(data[_key], { key, value }),
+  };
 };
 
 export const cloneDeep = (data: any) => JSON.parse(JSON.stringify(data));
@@ -35,11 +39,13 @@ export const getDeepValue = (data: ObjectType, key: string): any => {
   return key.split(".").reduce((prev, next) => prev?.[next], data);
 };
 
-export const getSubObject = (obj: ObjectType, sampleSub: ObjectType) => {
-  const _obj: ObjectType = {},
-    keys = Object.keys(sampleSub);
+export const getSubObject = (obj: ObjectType, keys: string | string[] = []) => {
+  const _obj: ObjectType = {};
 
-  keys.forEach((key) => (_obj[key] = getDeepValue(obj, key)));
+  keys = toArray(keys);
+
+  for (const key of keys)
+    assignDeep(_obj, { key, value: getDeepValue(obj, key) });
 
   return _obj;
 };
@@ -79,11 +85,4 @@ export const removeDeep = (
   }
 
   return { ...obj, [_key]: removeDeep(obj[_key], key) };
-};
-
-export const setDeepValue = (
-  data: ObjectType,
-  { key, value }: { key: string; value: any }
-) => {
-  return assignDeep(cloneDeep(data), { key, value });
 };
