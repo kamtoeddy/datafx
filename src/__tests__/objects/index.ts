@@ -153,3 +153,34 @@ export const getSubObject_Tests = ({
     });
   });
 };
+
+export const hasDeepKey_Tests = ({ hasDeepKey }: { hasDeepKey: Function }) => {
+  describe("hasDeepKey", () => {
+    const user = {
+      name: "James",
+      bio: {
+        facebook: { displayName: "james-1" },
+        twitter: { followers: "25k" },
+      },
+    };
+
+    it("should tell if an object has simple key", () => {
+      expect(hasDeepKey(user, "name")).toBe(true);
+      expect(hasDeepKey(user, "age")).toBe(false);
+    });
+
+    it("should tell if an object has nested key", () => {
+      const values = [
+        ["address.street.name", false],
+        ["address.street", false],
+        ["bio.facebook", true],
+        ["bio.facebook.displayName", true],
+        ["bio.twitter.followers", true],
+        ["bio.twitter.displayName", false],
+      ];
+
+      for (const [key, value] of values)
+        expect(hasDeepKey(user, key)).toBe(value);
+    });
+  });
+};
