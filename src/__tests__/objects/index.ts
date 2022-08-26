@@ -119,8 +119,13 @@ export const getSubObject_Tests = ({
     bio: {
       facebook: {
         displayName: "james-1",
-        followers: 0,
+        followers: 200,
         link: "/facebook/james",
+      },
+      instagram: {
+        displayName: "jamezz",
+        followers: 500,
+        link: "/instagram/jamezz",
       },
     },
   };
@@ -140,19 +145,15 @@ export const getSubObject_Tests = ({
     it("should return a sub version of an object with nested properties requested", () => {
       const values = [
         [
-          "bio.facebook",
-          {
-            displayName: "james-1",
-            followers: 0,
-            link: "/facebook/james",
-          },
+          "bio.facebook.displayName",
+          { bio: { facebook: { displayName: "james-1" } } },
         ],
-        // [["name"], { name: "James" }],
-        // [["age", "name"], { age: 10, name: "James" }],
+        ["bio.facebook", { bio: { facebook: user.bio.facebook } }],
+        ["bio", { bio: user.bio }],
       ];
 
-      // for (const [det, value] of values)
-      //   expect(getSubObject(user, det)).toEqual(value);
+      for (const [det, value] of values)
+        expect(getSubObject(user, det)).toEqual(value);
     });
   });
 };
