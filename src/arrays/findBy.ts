@@ -33,7 +33,7 @@ export const findBy: Fx = <T>(
   if (detType === "object")
     return list.find((dt) => {
       const sub = getSubObject(dt as ObjectType, determinant);
-      console.log(determinant, sub);
-      return isEqual(determinant, sub);
+
+      return isEqual(sub, determinant);
     });
 };
