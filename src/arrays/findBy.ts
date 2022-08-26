@@ -1,10 +1,5 @@
 import { ObjectType } from "../interfaces";
-import {
-  assignDeep,
-  getDeepValue,
-  getSubObject,
-  isDeepKeyed,
-} from "../objects";
+import { getDeepValue, isSubObjectEqual } from "../objects";
 import { isEqual } from "../utils";
 
 type Options = { fromBack?: boolean };
@@ -29,19 +24,5 @@ export const findBy = <T>(
       return isEqual(dt_val, value);
     });
 
-  return _list.find((dt) => {
-    const keys = Object.keys(determinant);
-
-    const sub = getSubObject(dt as ObjectType, keys);
-
-    if (!isDeepKeyed(determinant)) return isEqual(sub, determinant);
-
-    const determinantObject = {};
-
-    keys.forEach((key) =>
-      assignDeep(determinantObject, { key, value: determinant[key] })
-    );
-
-    return isEqual(sub, determinantObject);
-  });
+  return _list.find((dt) => isSubObjectEqual(dt as ObjectType, determinant));
 };

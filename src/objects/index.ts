@@ -1,5 +1,5 @@
 import { ObjectType } from "../interfaces";
-import { toArray } from "../utils";
+import { isEqual, toArray } from "../utils";
 
 export * from "./getDifference";
 
@@ -8,9 +8,6 @@ const getKeys = (key: string | string[]) =>
 
 const hasProp = (obj: ObjectType | undefined = {}, prop = "") =>
   obj?.hasOwnProperty(prop);
-
-export const isDeepKeyed = (obj: ObjectType) =>
-  Object.keys(obj).some((key) => key.split(".").length > 1);
 
 export const assignDeep = (
   data: ObjectType,
@@ -70,6 +67,25 @@ export const hasDeepKey = (
   if (keyFound && !key.length) return true;
 
   return hasDeepKey(obj?.[_key], key);
+};
+
+export const isDeepKeyed = (obj: ObjectType) =>
+  Object.keys(obj).some((key) => key.split(".").length > 1);
+
+export const isSubObjectEqual = (dt: ObjectType, expected: ObjectType) => {
+  const keys = Object.keys(expected);
+
+  const sub = getSubObject(dt as ObjectType, keys);
+
+  if (!isDeepKeyed(expected)) return isEqual(sub, expected);
+
+  const determinantObject = {};
+
+  keys.forEach((key) =>
+    assignDeep(determinantObject, { key, value: expected[key] })
+  );
+
+  return isEqual(sub, determinantObject);
 };
 
 export const removeDeep = (

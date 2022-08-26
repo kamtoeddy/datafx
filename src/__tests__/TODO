@@ -1,3 +1,1 @@
-console.log(findBy(users, { name: "James" }, { fromBack: true }));
-
 console.log(removeDeep(users[3], "a.age"));
