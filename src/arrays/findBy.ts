@@ -11,7 +11,7 @@ type Fx = <T>(
 ) => T | undefined;
 
 export const findBy: Fx = <T>(
-  list: T[] = [],
+  list: T[],
   determinant: any,
   options: FindByOptions = { fromBack: false }
 ) => {
@@ -33,9 +33,7 @@ export const findBy: Fx = <T>(
   if (detType === "object")
     return list.find((dt) => {
       const sub = getSubObject(dt as ObjectType, determinant);
-
+      console.log(determinant, sub);
       return isEqual(determinant, sub);
     });
-
-  return list.find((dt) => getDeepValue(dt as ObjectType, determinant));
 };
