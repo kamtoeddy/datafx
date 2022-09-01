@@ -113,9 +113,9 @@ export const isSubObjectEqual = (dt: ObjectType, expected: ObjectType) => {
 function removeDeep(obj: ObjectType, key: string | string[]): ObjectType {
   key = getKeys(key);
 
-  if (!key.length) return obj;
-
   const _key = key.shift()!;
+
+  if (!_key) return obj;
 
   if (!key.length) {
     delete obj?.[_key];

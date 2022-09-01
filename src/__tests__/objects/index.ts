@@ -1,10 +1,10 @@
 export const assignDeep_Tests = ({ assignDeep }: { assignDeep: Function }) => {
   describe("assignDeep", () => {
     it("should do nothing with empty key", () => {
-      expect(assignDeep({}, { key: "", value: "James" })).toEqual({});
+      const values = [{}, { age: 17 }];
 
-      const dt = { age: 17 };
-      expect(assignDeep(dt, { key: "", value: "James" })).toEqual(dt);
+      for (const value of values)
+        expect(assignDeep(value, { key: "", value: "James" })).toEqual(value);
     });
 
     it("should assign a value to a simple key", () => {
@@ -204,6 +204,12 @@ export const removeDeep_Tests = ({ removeDeep }: { removeDeep: Function }) => {
           twitter: { followers: "25k" },
         },
       };
+    });
+
+    it("should do nothing with empty key", () => {
+      const values = [{}, { age: 17 }];
+
+      for (const value of values) expect(removeDeep(value, "")).toEqual(value);
     });
 
     it("should not modify object if key is missing", () => {
