@@ -1,5 +1,12 @@
 export const assignDeep_Tests = ({ assignDeep }: { assignDeep: Function }) => {
   describe("assignDeep", () => {
+    it("should do nothing with empty key", () => {
+      expect(assignDeep({}, { key: "", value: "James" })).toEqual({});
+
+      const dt = { age: 17 };
+      expect(assignDeep(dt, { key: "", value: "James" })).toEqual(dt);
+    });
+
     it("should assign a value to a simple key", () => {
       expect(assignDeep({}, { key: "name", value: "James" })).toEqual({
         name: "James",
