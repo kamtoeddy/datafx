@@ -1,26 +1,39 @@
-import { ObjectType } from "./interfaces";
+import { ObjectType, StringKey } from "./interfaces";
 import { getDeepValue } from "./objects";
 
 type Translations = Record<string, ObjectType>;
 
-export class Translator {
-  fallback: string = "";
-  locale: string = "";
-  locales: string[] = [];
+export class Translator<T extends Translations> {
+  private _fallback: StringKey<T>;
+  private _locale: StringKey<T>;
+  private _locales: StringKey<T>[] = [];
 
-  constructor(private translations: Translations, fallback: string) {
+  constructor(private translations: T, fallback: StringKey<T>) {
     this.translations = translations;
 
-    this.locales = Object.keys(this.translations);
+    this._locales = Object.keys(this.translations) as StringKey<T>[];
 
-    if (!fallback || !this.isValidLocale(fallback)) fallback = this.locales[0];
+    if (!fallback || !this.isValidLocale(fallback))
+      fallback = this._locales[0] as StringKey<T>;
 
-    this.fallback = fallback;
-
-    this.setLocale(fallback);
+    this._fallback = fallback as StringKey<T>;
+    this._locale = this._fallback;
   }
 
-  private isValidLocale = (locale: any) => this.locales.includes(locale);
+  get fallback() {
+    return this._fallback;
+  }
+
+  get locale() {
+    return this._locale;
+  }
+
+  get locales() {
+    return this._locales;
+  }
+
+  private isValidLocale = (locale: any) =>
+    this._locales.includes(locale as StringKey<T>);
 
   private getAlternative(key: string, depth: number) {
     const keys = key.split(".");
@@ -28,17 +41,17 @@ export class Translator {
     return key.split(".")[keys.length - depth];
   }
 
-  setLocale = (locale: string) => {
+  setLocale = (locale: StringKey<T>) => {
     if (!this.isValidLocale(locale)) return;
-    this.locale = locale;
+    this._locale = locale;
 
-    return this.locale;
+    return this._locale;
   };
 
   translate = (key: string, depth = 1) => {
     return (
-      getDeepValue(this.translations[this.locale], key) ??
-      getDeepValue(this.translations[this.fallback], key) ??
+      getDeepValue(this.translations[this._locale], key) ??
+      getDeepValue(this.translations[this._fallback], key) ??
       this.getAlternative(key, depth)
     );
   };
