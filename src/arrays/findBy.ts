@@ -2,7 +2,7 @@ import { NestedKeyOf, ObjectType } from "../interfaces";
 import { getDeepValue, isSubObjectEqual } from "../objects";
 import { isEqual } from "../utils";
 
-type Finder<T> = (item: T, index: number, list: T[]) => boolean;
+type Finder<T> = (item: T, index: number, array: T[]) => boolean;
 type FindAsObject<T> = Partial<{ [K in NestedKeyOf<T>]: any }>;
 type Options = { fromBack?: boolean };
 
