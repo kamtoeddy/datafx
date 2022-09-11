@@ -1,7 +1,9 @@
-import { ObjectType } from "../interfaces";
+import { NestedKeyOf, ObjectType } from "../interfaces";
 import { getDeepValue, isSubObjectEqual } from "../objects";
 import { isEqual } from "../utils";
 
+type Filter<T> = (item: T) => boolean;
+type FilterAsObject<T> = Partial<{ [K in NestedKeyOf<T>]: any }>;
 type Options = { exclude?: boolean };
 
 const defaultOptions: Options = { exclude: false };
@@ -38,7 +40,7 @@ const asObject = <T>(
 
 export const filterBy = <T>(
   list: T[],
-  determinant: any,
+  determinant: Filter<T> | FilterAsObject<T> | [NestedKeyOf<T>, any],
   options: Options = defaultOptions
 ) => {
   if (!determinant) return list;
