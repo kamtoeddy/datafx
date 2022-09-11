@@ -1,19 +1,24 @@
-import { ObjectType } from "../interfaces";
+import { NestedKeyOf, ObjectType } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-type GroupedMap<T> = {
-  [key: number | string]: T[];
-};
+type Grouper<T> = (item: T) => any;
+type GroupedMap<T> = Record<NestedKeyOf<T>, T[]>;
 
-export const groupBy = <T>(list: T[], determinant: any) => {
+export const groupBy = <T>(
+  list: T[],
+  determinant: Grouper<T> | NestedKeyOf<T>
+) => {
   if (!list) return {} as GroupedMap<T>;
 
   const asFx = typeof determinant === "function";
 
   return list.reduce((prev, next) => {
     const key = asFx
-      ? determinant(next)
-      : getDeepValue(next as ObjectType, determinant);
+      ? (determinant(next) as NestedKeyOf<T>)
+      : (getDeepValue(
+          next as ObjectType,
+          determinant as string
+        ) as NestedKeyOf<T>);
 
     if (key === undefined) return prev;
 
