@@ -144,15 +144,3 @@ function _removeDeep<T extends ObjectType>(
 function removeDeep<T extends ObjectType>(obj: T, key: NestedKeyOf<T>) {
   return _removeDeep(obj, key);
 }
-
-const users = [
-  { name: "James", age: 10, bio: { facebook: { link: "/james" } } },
-  { name: "Mary", age: 10, bio: { facebook: { link: "/mary" } } },
-];
-
-// const item = findBy(["name", "age", "dob"], (v) => v.endsWith("e"));
-// const item1 = findBy(users, ["name", "Peter"]);
-const item2 = removeDeep(users[0], "age");
-
-// console.log(item, item1, item2);
-console.log(item2);
