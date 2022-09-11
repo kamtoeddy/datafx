@@ -7,4 +7,3 @@ export { getUniqueBy } from "./getUniqueBy";
 export * from "./groupBy";
 export * from "./removeAt";
 export * from "./sortBy";
-export * from "./updateBy";
