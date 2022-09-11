@@ -1,7 +1,7 @@
 import { NestedKeyOf, ObjectType } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-type Counter<T> = (item: T) => keyof T;
+type Counter<T> = (item: T) => NestedKeyOf<T>;
 
 const useCount = (obj: ObjectType, key: string) => {
   obj[key] ? obj[key]++ : (obj[key] = 1);
