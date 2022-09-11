@@ -1,7 +1,7 @@
-import { ObjectType } from "../interfaces";
+import { NestedKeyOf, ObjectType } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-type DeterminantFunction<T> = (a: T, b: T) => -1 | 1;
+type Sorter<T> = (a: T, b: T) => -1 | 1;
 type SortOrder = "asc" | "desc";
 
 const getSortOrder = (order: SortOrder) =>
@@ -25,15 +25,15 @@ const defaultSort = <T>(list: T[], order: SortOrder = "asc") => {
 
 export const sortBy = <T>(
   list: T[],
-  determinant?: DeterminantFunction<T> | string | null,
+  determinant?: Sorter<T> | NestedKeyOf<T>,
   order: SortOrder = "asc"
 ) => {
-  if (!determinant) return defaultSort(list, order);
+  const _list = Array.from(list);
+  if (!determinant) return defaultSort(_list, order);
 
   const detType = typeof determinant;
 
-  if (detType === "function")
-    return list.sort(determinant as DeterminantFunction<T>);
+  if (detType === "function") return _list.sort(determinant as Sorter<T>);
 
-  return asObject(list, determinant as string, order) as T[];
+  return asObject(_list, determinant as string, order) as T[];
 };
