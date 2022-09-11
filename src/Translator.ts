@@ -50,8 +50,8 @@ export class Translator<T extends Translations> {
 
   translate = (key: string, depth = 1) => {
     return (
-      getDeepValue(this.translations[this._locale], key) ??
-      getDeepValue(this.translations[this._fallback], key) ??
+      getDeepValue(this.translations[this._locale], key as any) ??
+      getDeepValue(this.translations[this._fallback], key as any) ??
       this.getAlternative(key, depth)
     );
   };

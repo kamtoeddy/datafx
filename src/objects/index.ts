@@ -1,4 +1,4 @@
-import { ObjectType } from "../interfaces";
+import { ObjectType, NestedKeyOf } from "../interfaces";
 import { isEqual, toArray } from "../utils";
 
 export {
@@ -20,13 +20,14 @@ const hasProp = (obj: ObjectType | undefined = {}, prop = "") =>
   obj?.hasOwnProperty(prop);
 
 // methods
-function assignDeep(
-  data: ObjectType,
-  { key, value }: { key: string | string[]; value: any }
+function _assignDeep<T extends ObjectType>(
+  data: T,
+  key: NestedKeyOf<T> | string[],
+  value: any
 ): ObjectType {
   key = getKeys(key);
 
-  const _key = key.shift()!;
+  const _key = key.shift()! as keyof T;
 
   if (!_key) return data;
 
@@ -36,16 +37,24 @@ function assignDeep(
     return data;
   }
 
-  if (!data?.[_key]) data[_key] = {};
+  if (!data?.[_key]) data[_key] = {} as any;
 
-  return { ...data, [_key]: assignDeep(data[_key], { key, value }) };
+  return { ...data, [_key]: _assignDeep(data[_key], key, value) };
 }
 
-function cloneDeep(dt: any) {
+function assignDeep<T extends ObjectType>(
+  data: T,
+  key: NestedKeyOf<T>,
+  value: any
+): ObjectType {
+  return _assignDeep(data, key, value);
+}
+
+function cloneDeep<T>(dt: T): T {
   return dt === undefined ? dt : JSON.parse(JSON.stringify(dt));
 }
 
-function getDeepValue(data: ObjectType, key: string): any {
+function getDeepValue<T extends ObjectType>(data: T, key: NestedKeyOf<T>): any {
   return key.split(".").reduce((prev, next) => prev?.[next], data);
 }
 
@@ -68,13 +77,15 @@ function getSubObject(obj: ObjectType, keys: string | string[] = []) {
 
   keys = toArray(keys);
 
-  for (const key of keys)
-    assignDeep(_obj, { key, value: getDeepValue(obj, key) });
+  for (const key of keys) assignDeep(_obj, key, getDeepValue(obj, key));
 
   return _obj;
 }
 
-function hasDeepKey(obj: ObjectType, key: string | string[]): boolean {
+function _hasDeepKey<T extends ObjectType>(
+  obj: T,
+  key: NestedKeyOf<T> | string[]
+): boolean {
   key = getKeys(key);
 
   const _key = key.shift();
@@ -87,7 +98,11 @@ function hasDeepKey(obj: ObjectType, key: string | string[]): boolean {
 
   if (keyFound && !key.length) return true;
 
-  return hasDeepKey(obj?.[_key], key);
+  return _hasDeepKey(obj?.[_key], key);
+}
+
+function hasDeepKey<T extends ObjectType>(obj: T, key: NestedKeyOf<T>) {
+  return _hasDeepKey(obj, key);
 }
 
 function isDeepKeyed(obj: ObjectType) {
@@ -101,16 +116,17 @@ export const isSubObjectEqual = (dt: ObjectType, expected: ObjectType) => {
 
   if (!isDeepKeyed(expected)) return isEqual(sub, expected);
 
-  const determinantObject = {};
+  const determinantObject = {} as ObjectType;
 
-  keys.forEach((key) =>
-    assignDeep(determinantObject, { key, value: expected[key] })
-  );
+  keys.forEach((key) => assignDeep(determinantObject, key, expected[key]));
 
   return isEqual(sub, determinantObject);
 };
 
-function removeDeep(obj: ObjectType, key: string | string[]): ObjectType {
+function _removeDeep<T extends ObjectType>(
+  obj: T,
+  key: string | string[]
+): ObjectType {
   key = getKeys(key);
 
   const _key = key.shift()!;
@@ -122,5 +138,21 @@ function removeDeep(obj: ObjectType, key: string | string[]): ObjectType {
     return obj;
   }
 
-  return { ...obj, [_key]: removeDeep(obj[_key], key) };
+  return { ...obj, [_key]: _removeDeep(obj[_key], key) };
 }
+
+function removeDeep<T extends ObjectType>(obj: T, key: NestedKeyOf<T>) {
+  return _removeDeep(obj, key);
+}
+
+const users = [
+  { name: "James", age: 10, bio: { facebook: { link: "/james" } } },
+  { name: "Mary", age: 10, bio: { facebook: { link: "/mary" } } },
+];
+
+// const item = findBy(["name", "age", "dob"], (v) => v.endsWith("e"));
+// const item1 = findBy(users, ["name", "Peter"]);
+const item2 = removeDeep(users[0], "age");
+
+// console.log(item, item1, item2);
+console.log(item2);
