@@ -9,7 +9,7 @@ const ms = 1,
   mo = 30 * d,
   y = 365.25 * d;
 
-const unitsAsMs: Record<DateTimeUnit, number> = {
+export const unitsAsMs: Record<DateTimeUnit, number> = {
   ms,
   millisecond: ms,
   milliseconds: ms,
@@ -44,3 +44,40 @@ const unitsAsMs: Record<DateTimeUnit, number> = {
 export const getMilliseconds = (value: number, unit: DateTimeUnit) => {
   return value * unitsAsMs?.[unit] ?? 0;
 };
+
+/**
+ *
+ * @param a bigger unit
+ * @param b smaller unit
+ * @returns how many times `a` is bigger that `b`
+ */
+function getRatio(a: DateTimeUnit, b: DateTimeUnit) {
+  return Math.floor(unitsAsMs[a] / unitsAsMs[b]);
+}
+
+export function composeRatio(
+  units: DateTimeUnit[]
+): [DateTimeUnit, number | undefined][] {
+  const sorted = sortUnits(units),
+    lastIndex = sorted.length - 1;
+
+  return sorted.map((unit, i) => {
+    return i === lastIndex
+      ? [unit, undefined]
+      : [unit, getRatio(sorted[i + 1], unit)];
+  });
+}
+
+/**
+ *
+ * @param a datetime unit to compare
+ * @param b datetime unit to compare
+ * @returns if `a` has a greater coefficient(in ms) than `b`
+ */
+function isUnitGreater(a: DateTimeUnit, b: DateTimeUnit) {
+  return unitsAsMs[a] > unitsAsMs[b];
+}
+
+function sortUnits(units: DateTimeUnit[]) {
+  return [...units].sort((a, b) => (isUnitGreater(a, b) ? 1 : -1));
+}
