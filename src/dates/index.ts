@@ -2,7 +2,6 @@ import { getMilliseconds } from "./getMilliseconds";
 import { DateTimeUnit } from "./units";
 
 export * from "./getTimeLeft";
-export * from "./secondsToTime";
 
 export type DateType = Date | string;
 type DateTuple = [number, DateTimeUnit];

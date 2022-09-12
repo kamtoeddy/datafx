@@ -43,9 +43,3 @@ export const getTimeLeft = (
 
   return timeLeft;
 };
-
-const date = new Date("2022-09-12T17:11:05.890Z");
-
-setInterval(() => {
-  console.log(getTimeLeft(date, ["H", "m", "s"]));
-}, 1000);
