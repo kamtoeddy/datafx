@@ -44,5 +44,24 @@ export const countBy_Tests = ({ countBy }: { countBy: Function }) => {
         "/facebook/peter": 1,
       });
     });
+
+    it("should count by counter function", () => {
+      const counter = (item: any) =>
+        typeof item === "object" && item ? "object" : item;
+
+      const counted = countBy(
+        [null, "a", null, 1, 2, 1, "a", null, undefined, null, ...users],
+        counter
+      );
+
+      expect(counted).toMatchObject({
+        1: 2,
+        2: 1,
+        a: 2,
+        null: 4,
+        object: users.length,
+        undefined: 1,
+      });
+    });
   });
 };

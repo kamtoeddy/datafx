@@ -32,8 +32,6 @@ export const countBy = <T>(
       ? determinant(next)
       : getDeepValue(next as ObjectType, determinant);
 
-    if (key === undefined) return prev;
-
     return useCount(prev, key);
   }, {} as ObjectType);
 };

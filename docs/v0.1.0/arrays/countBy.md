@@ -1,59 +1,70 @@
-# sortBy
+# countBy
 
-A function to help you sort an array. It takes in the array to sort as first parapemter, the deteminant (a function or string) used to compare the items of the array and the sort order as third argument. The second and third arguments optional.
+A function to help you count occurences in an array.
 
 Example:
 
 ```js
-import { sortBy } from "datafx";
+import { countBy } from "datafx";
 
-sortBy([11, 4, 6, 3, 7]); // [3, 4, 6, 7, 11]
-sortBy([11, 4, 6, 3, 7], undefined, "asc"); // [3, 4, 6, 7, 11]
-sortBy([11, 4, 6, 3, 7], undefined, "desc"); // [11, 7, 6, 4, 3]
+countBy([null, "a", null, 1, 2, 1, "a", null, undefined, null]);
+
+// {
+//   1: 2,
+//   2: 1,
+//   a: 2,
+//   null: 4,
+//   undefined: 1,
+// }
 ```
 
 ## By key
 
 ```js
-import { sortBy } from "datafx";
+import { countBy } from "datafx";
 
 const users = [
+  { name: "James", bio: { followers: 300 } },
   { name: "Mary", bio: { followers: 275 } },
   { name: "Bob", bio: { followers: 300 } },
   { name: "James", bio: { followers: 220 } },
   { name: "Doe", bio: { followers: 250 } },
 ];
 
-sortBy(users, "name");
-// [
-//   { name: "Bob", bio: { followers: 300 } },
-//   { name: "Doe", bio: { followers: 250 } },
-//   { name: "James", bio: { followers: 220 } },
-//   { name: "Mary", bio: { followers: 275 } },
-// ];
-sortBy(users, "bio.followers", "desc");
-// [
-//   { name: "James", bio: { followers: 220 } },
-//   { name: "Doe", bio: { followers: 250 } },
-//   { name: "Mary", bio: { followers: 275 } },
-//   { name: "Bob", bio: { followers: 300 } },
-// ];
+countBy(users, "name");
+// {
+//   Bob: 1,
+//   Doe: 1,
+//   James: 2,
+//   Mary: 1
+// }
+countBy(users, "bio.followers");
+// {
+//   220: 1,
+//   250: 1,
+//   275: 1,
+//   300: 2
+// }
 ```
 
 ## By Function
 
-This function accepts two arguments and is expected to return `-1` and `1` for ascending & descending orders respectively. With this determinant, the sort order(third argument) is ignored
+This function accepts one of the items in the array to count at a time. Whatever is returned from this function will be used as a key of the returned count object.
 
 ```js
-function sorter(a, b) {
-  return a.followers < b.followers ? -1 : 1;
-}
+const counter = (item) => (typeof item === "object" && item ? "object" : item);
 
-sortBy(users, sorter);
-// [
-//   { name: "Bob", bio: { followers: 300 } },
-//   { name: "Doe", bio: { followers: 250 } },
-//   { name: "James", bio: { followers: 220 } },
-//   { name: "Mary", bio: { followers: 275 } },
-// ];
+countBy(
+  [null, "a", null, 1, 2, 1, "a", null, undefined, null, ...users],
+  counter
+);
+
+// {
+//   1: 2,
+//   2: 1,
+//   a: 2,
+//   null: 4,
+//   object: 4,
+//   undefined: 1,
+// }
 ```
