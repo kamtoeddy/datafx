@@ -11,28 +11,28 @@ export const serialize = (dt: any, revert = false) => {
   }
 };
 
-export const getUnique = <T>(list: T[]) => {
-  let _list = list.map((dt) => serialize(dt));
+export const getUnique = <T>(array: T[]) => {
+  let _array = array.map((dt) => serialize(dt));
 
-  _list = Array.from(new Set(_list));
+  _array = Array.from(new Set(_array));
 
-  return _list.map((dt) => serialize(dt, true));
+  return _array.map((dt) => serialize(dt, true));
 };
 
 export const getUniqueBy = <T>(
-  list: T[],
+  array: T[],
   key?: NestedKeyOf<T>,
   { backwards }: Options = { backwards: false }
 ) => {
-  let _list = Array.from(list);
+  let _array = Array.from(array);
 
-  if (backwards) _list = _list.reverse();
+  if (backwards) _array = _array.reverse();
 
-  if (!key) return getUnique(_list) as T[];
+  if (!key) return getUnique(_array) as T[];
 
   let obj: ObjectType = {};
 
-  _list.forEach((dt) => (obj[getDeepValue(dt as ObjectType, key)] = dt));
+  _array.forEach((dt) => (obj[getDeepValue(dt as ObjectType, key)] = dt));
 
   return Object.values(obj) as T[];
 };

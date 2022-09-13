@@ -7,8 +7,8 @@ type SortOrder = "asc" | "desc";
 const getSortOrder = (order: SortOrder) =>
   order.toLowerCase() === "asc" ? -1 : 1;
 
-const byKey = <T>(list: T[], key: string, order: SortOrder = "asc") => {
-  return list.sort((a, b) => {
+const byKey = <T>(array: T[], key: string, order: SortOrder = "asc") => {
+  return array.sort((a, b) => {
     const a_val = getDeepValue(a as ObjectType, key);
     const b_val = getDeepValue(b as ObjectType, key);
 
@@ -24,11 +24,11 @@ const defaultSort = <T>(list: T[], order: SortOrder = "asc") => {
 };
 
 export const sortBy = <T>(
-  list: T[],
+  array: T[],
   determinant?: Sorter<T> | NestedKeyOf<T>,
   order: SortOrder = "asc"
 ) => {
-  const _list = Array.from(list);
+  const _list = Array.from(array);
   if (!determinant) return defaultSort(_list, order);
 
   const detType = typeof determinant;

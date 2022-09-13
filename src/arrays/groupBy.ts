@@ -5,14 +5,14 @@ type Grouper<T> = (item: T) => any;
 type GroupedMap<T> = Record<NestedKeyOf<T>, T[]>;
 
 export const groupBy = <T>(
-  list: T[],
+  array: T[],
   determinant: Grouper<T> | NestedKeyOf<T>
 ) => {
-  if (!list) return {} as GroupedMap<T>;
+  if (!array) return {} as GroupedMap<T>;
 
   const asFx = typeof determinant === "function";
 
-  return list.reduce((prev, next) => {
+  return array.reduce((prev, next) => {
     const key = asFx
       ? (determinant(next) as NestedKeyOf<T>)
       : (getDeepValue(

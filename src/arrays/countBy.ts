@@ -9,25 +9,25 @@ const useCount = (obj: ObjectType, key: string) => {
   return obj;
 };
 
-const countInstances = (list: any[]) => {
+const countInstances = (array: any[]) => {
   const obj: ObjectType = {};
 
-  list.forEach((key) => useCount(obj, key));
+  array.forEach((key) => useCount(obj, key));
 
   return obj;
 };
 
 export const countBy = <T>(
-  list: T[],
+  array: T[],
   determinant?: Counter<T> | NestedKeyOf<T>
 ) => {
-  if (!list) return [];
+  if (!array) return [];
 
-  if (!determinant) return countInstances(list);
+  if (!determinant) return countInstances(array);
 
   const asFx = typeof determinant === "function";
 
-  return list.reduce((prev, next) => {
+  return array.reduce((prev, next) => {
     const key = asFx
       ? determinant(next)
       : getDeepValue(next as ObjectType, determinant);
