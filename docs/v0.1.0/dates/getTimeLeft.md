@@ -8,4 +8,13 @@ import { dates } from "datafx";
 const { getTimeLeft } = dates;
 
 const timeLeft = getTimeLeft("2500-01-01", ["Y", "M", "D", "H"]);
+
+console.log(timeLeft);
+// {
+//   isOver: boolean;
+//   Y: number;
+//   M: number;
+//   D: number;
+//   H: number;
+// };
 ```
