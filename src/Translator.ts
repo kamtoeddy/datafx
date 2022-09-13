@@ -8,7 +8,7 @@ export class Translator<T extends Translations> {
   private _locale: StringKey<T>;
   private _locales: StringKey<T>[] = [];
 
-  constructor(private translations: T, fallback: StringKey<T>) {
+  constructor(private translations: T, fallback?: StringKey<T>) {
     this.translations = translations;
 
     this._locales = Object.keys(this.translations) as StringKey<T>[];
