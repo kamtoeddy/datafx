@@ -22,9 +22,7 @@ export const sortBy_Tests = ({ sortBy }: { sortBy: Function }) => {
     });
 
     it("should sort by descending order when specified", () => {
-      expect(sortBy(arrays[0] as number[], null, "desc")).toStrictEqual(
-        arrays[0].reverse()
-      );
+      expect(sortBy([...arrays[0]], null, "desc")).toEqual([11, 7, 6, 4, 3]);
     });
 
     it("should sort by custom determinant function", () => {
