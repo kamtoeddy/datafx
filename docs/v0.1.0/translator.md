@@ -71,11 +71,11 @@ export function Home() {
   }
 
   return (
-    <>
+    <section>
       <h1>{tr.translate("pages.home.section_1.header")}</h1>
       <p>{tr.translate("pages.home.section_1.body")}</p>
-      <Dropdown values={tr.locales} onChange={changeLocale}></Dropdown>
-    </>
+      <Dropdown value={_locale} values={tr.locales} onChange={changeLocale} />
+    </section>
   );
 }
 ```
