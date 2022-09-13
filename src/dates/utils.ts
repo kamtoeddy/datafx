@@ -41,10 +41,6 @@ export const unitsAsMs: Record<DateTimeUnit, number> = {
   years: y,
 };
 
-export const getMilliseconds = (value: number, unit: DateTimeUnit) => {
-  return value * unitsAsMs?.[unit] ?? 0;
-};
-
 /**
  *
  * @param a bigger unit

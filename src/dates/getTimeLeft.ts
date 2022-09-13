@@ -1,6 +1,6 @@
 import { DateType } from ".";
 import { toArray, useIf } from "../utils";
-import { composeRatio, unitsAsMs } from "./getMilliseconds";
+import { composeRatio, unitsAsMs } from "./utils";
 import { DateTimeUnit } from "./units";
 
 type TypeTimeLeft = { isOver: boolean } & {
@@ -11,13 +11,7 @@ const isNegative = (v: any) => isNaN(v) || v < 0;
 
 export const getTimeLeft = (
   endDateTime: DateType,
-  units: DateTimeUnit | DateTimeUnit[] = [
-    "months",
-    "days",
-    "hours",
-    "minutes",
-    "seconds",
-  ]
+  units: DateTimeUnit | DateTimeUnit[]
 ) => {
   const totalInMs = useIf(
     0,

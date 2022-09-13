@@ -1,4 +1,4 @@
-import { getMilliseconds } from "./getMilliseconds";
+import { unitsAsMs } from "./utils";
 import { DateTimeUnit } from "./units";
 
 export { getTimeLeft } from "./getTimeLeft";
@@ -12,6 +12,10 @@ const getDateTuple = (args: DateTuple | DateTuple[]) => {
   return Array.isArray(args?.[0])
     ? (args as DateTuple[])
     : ([args] as DateTuple[]);
+};
+
+const getMilliseconds = (value: number, unit: DateTimeUnit) => {
+  return value * unitsAsMs?.[unit] ?? 0;
 };
 
 export const getDateString = (value = new Date()) =>
