@@ -4,6 +4,9 @@ This is a set of small utility fucntions used to manipulated strings, numbers, a
 
 ## Docs
 
+- [Arrays]
+  - [countBy](./docs/v0.1.0/arrays/countBy.md#countBy)
+  - [sortBy](./docs/v0.1.0/arrays/sortBy.md#sortby)
 - [Dates](./docs/v0.1.0/dates/index.md#supported-units)
   - [add](./docs/v0.1.0/dates/index.md#add)
   - [isAfter](./docs/v0.1.0/dates/index.md#isafter)
