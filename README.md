@@ -9,4 +9,6 @@ This is a set of small utility fucntions used to manipulated strings, numbers, a
   - [isAfter](./docs/v0.1.0/dates/index.md#isafter)
   - [isBefore](./docs/v0.1.0/dates/index.md#isbefore)
   - [getTimeLeft](./docs/v0.1.0/dates/getTimeLeft.md#get-time-left)
+- [Numbers](./docs/v0.1.0/numbers/index.md)
 - [Translator](./docs/v0.1.0/translator.md#translator)
+- [Changelog](./docs/v0.1.0/CHANGELOG.md#changelog)

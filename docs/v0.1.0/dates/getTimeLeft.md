@@ -1,4 +1,4 @@
-### Get time left
+### getTimeLeft
 
 It returns the time left between the the date provided and today in the [supported time units](./index.md#supported-units) provided together with `isOver`; a boolean which tells whether all units returned have zero as value
 

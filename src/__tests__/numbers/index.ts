@@ -56,7 +56,7 @@ export const getRandom_Tests = ({ getRandom }: { getRandom: Function }) => {
         upperB = 105;
 
       for (let i = 0; i < 1000; i++) {
-        const num = getRandom({ lowerB, upperB });
+        const num = getRandom(lowerB, upperB);
 
         expect(num >= lowerB && num <= upperB).toBe(true);
       }
