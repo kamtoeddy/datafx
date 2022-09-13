@@ -7,7 +7,7 @@ export const assignDeep_Tests = ({ assignDeep }: { assignDeep: Function }) => {
         expect(assignDeep(value, "", "James")).toEqual(value);
     });
 
-    it("should assign a value to a simple key", () => {
+    it("should assign a value by simple key", () => {
       expect(assignDeep({}, "name", "James")).toEqual({
         name: "James",
       });
@@ -18,11 +18,9 @@ export const assignDeep_Tests = ({ assignDeep }: { assignDeep: Function }) => {
       });
     });
 
-    it("should assign a value to a nested key", () => {
-      let dt = assignDeep(
-        {},
-        { key: "bio.facebook.displayName", value: "james-1" }
-      );
+    it("should assign a value by nested key", () => {
+      let dt = assignDeep({}, "bio.facebook.displayName", "james-1");
+
       assignDeep(dt, "bio.facebook.followers", "12.7k");
 
       expect(dt).toEqual({
