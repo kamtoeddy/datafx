@@ -1,10 +1,8 @@
 import { unitsAsMs } from "./utils";
-import { DateTimeUnit } from "./units";
+import { DateTimeUnit, DateTuple, DateType } from "./units";
 
+export { add, getDateString, isAfter, isBefore };
 export { getTimeLeft } from "./getTimeLeft";
-
-export type DateType = Date | string;
-type DateTuple = [number, DateTimeUnit];
 
 const getDateTuple = (args: DateTuple | DateTuple[]) => {
   if (!args.length) return [];
@@ -18,10 +16,11 @@ const getMilliseconds = (value: number, unit: DateTimeUnit) => {
   return value * unitsAsMs?.[unit] ?? 0;
 };
 
-export const getDateString = (value = new Date()) =>
-  new Date(value).toISOString().substring(0, 10);
+function getDateString(value = new Date()) {
+  return new Date(value).toISOString().substring(0, 10);
+}
 
-export function add(date: DateType, ...args: DateTuple | DateTuple[]) {
+function add(date: DateType, ...args: DateTuple | DateTuple[]) {
   const _units: DateTuple[] = getDateTuple(args);
 
   const ms: number = _units.reduce(
@@ -34,7 +33,7 @@ export function add(date: DateType, ...args: DateTuple | DateTuple[]) {
   return new Date(new Date(date).getTime() + ms);
 }
 
-export function isAfter(
+function isAfter(
   date: DateType,
   refDate: DateType,
   ...periodOfTolerance: DateTuple | DateTuple[]
@@ -44,6 +43,6 @@ export function isAfter(
   );
 }
 
-export function isBefore(date: DateType, refDate: DateType) {
+function isBefore(date: DateType, refDate: DateType) {
   return new Date(date).getTime() < new Date(refDate).getTime();
 }

@@ -16,3 +16,7 @@ export type DateTimeUnit =
   | Minute
   | Second
   | Millisecond;
+
+export type DateType = Date | string;
+
+export type DateTuple = [number, DateTimeUnit];

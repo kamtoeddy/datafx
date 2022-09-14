@@ -1,7 +1,6 @@
-import { DateType } from ".";
 import { toArray, useIf } from "../utils";
 import { composeRatio, unitsAsMs } from "./utils";
-import { DateTimeUnit } from "./units";
+import { DateTimeUnit, DateType } from "./units";
 
 type TypeTimeLeft = { isOver: boolean } & {
   [K in DateTimeUnit]?: number;
