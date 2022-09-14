@@ -1,6 +1,6 @@
 # filterBy
 
-A function to help you filter an array. It takes in the array to sort as first argument, the second argument is the filter( an array([key, value]), an object or a function ) used to compare the items.
+A function to help you filter an array. It takes in the array to filter as first argument, the second argument is the filter( an array([key, value]), an object or a function ) used to compare the items.
 
 The third argument is an object with property exclude(boolean) which will be used to exclude the values retained by the non-functional filter(array or object only) provided.
 
