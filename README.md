@@ -27,5 +27,6 @@ This is a set of small utility fucntions used to manipulated strings, numbers, a
   - [getSubObject](./docs/v0.1.0/objects/getSubObject.md#getSubObject)
   - [hasDeepKey](./docs/v0.1.0/objects/hasDeepKey.md#hasDeepKey)
   - [removeDeep](./docs/v0.1.0/objects/removeDeep.md#removeDeep)
+- [toBase64](./docs/v0.1.0/toBase64.md#toBase64)
 - [Translator](./docs/v0.1.0/translator.md#translator)
 - [Changelog](./docs/v0.1.0/CHANGELOG.md#changelog)
