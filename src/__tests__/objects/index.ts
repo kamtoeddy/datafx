@@ -4,25 +4,24 @@ export const assignDeep_Tests = ({ assignDeep }: { assignDeep: Function }) => {
       const values = [{}, { age: 17 }];
 
       for (const value of values)
-        expect(assignDeep(value, { key: "", value: "James" })).toEqual(value);
+        expect(assignDeep(value, "", "James")).toEqual(value);
     });
 
-    it("should assign a value to a simple key", () => {
-      expect(assignDeep({}, { key: "name", value: "James" })).toEqual({
+    it("should assign a value by simple key", () => {
+      expect(assignDeep({}, "name", "James")).toEqual({
         name: "James",
       });
 
-      expect(
-        assignDeep({ age: 17, name: "Paul" }, { key: "name", value: "James" })
-      ).toEqual({ age: 17, name: "James" });
+      expect(assignDeep({ age: 17, name: "Paul" }, "name", "James")).toEqual({
+        age: 17,
+        name: "James",
+      });
     });
 
-    it("should assign a value to a nested key", () => {
-      let dt = assignDeep(
-        {},
-        { key: "bio.facebook.displayName", value: "james-1" }
-      );
-      assignDeep(dt, { key: "bio.facebook.followers", value: "12.7k" });
+    it("should assign a value by nested key", () => {
+      let dt = assignDeep({}, "bio.facebook.displayName", "james-1");
+
+      assignDeep(dt, "bio.facebook.followers", "12.7k");
 
       expect(dt).toEqual({
         bio: { facebook: { displayName: "james-1", followers: "12.7k" } },
@@ -30,9 +29,10 @@ export const assignDeep_Tests = ({ assignDeep }: { assignDeep: Function }) => {
 
       let dt2 = assignDeep(
         { name: "James" },
-        { key: "bio.facebook.displayName", value: "james-1" }
+        "bio.facebook.displayName",
+        "james-1"
       );
-      assignDeep(dt2, { key: "bio.facebook.followers", value: "13.7k" });
+      assignDeep(dt2, "bio.facebook.followers", "13.7k");
 
       expect(dt2).toEqual({
         name: "James",
@@ -100,7 +100,7 @@ export const getDifference_Tests = ({
     c = { name: "Jo", age: 13 };
 
   describe("getDifference", () => {
-    it("should give differenc btw 2 objects wrt their properties", () => {
+    it("should give difference btw 2 objects wrt their properties", () => {
       expect(getDifference(a, a)).toMatchObject({});
       expect(getDifference(a, b)).toMatchObject({ name: "Joe" });
       expect(getDifference(b, a)).toMatchObject({ name: "Jo", age: 12 });

@@ -15,7 +15,7 @@ export const filterBy_Tests = ({ filterBy }: { filterBy: Function }) => {
       expect(
         filterBy(users, {
           id: 1,
-          age: 10,
+          name: "James",
           "bio.facebook.displayName": "james-1",
         }).length
       ).toBe(1);

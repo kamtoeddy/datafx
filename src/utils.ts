@@ -1,5 +1,3 @@
-import { secondsToTime } from "./dates/secondsToTime";
-
 const capitaliseOne = (word: string) => {
   return word[0].toUpperCase() + word.slice(1).toLowerCase();
 };
@@ -37,18 +35,6 @@ export function isEqual(a: any, b: any) {
   }
 
   return ref_a == ref_b;
-}
-
-export function prettyTime(ms: number) {
-  const { days, hours, minutes } = secondsToTime(ms);
-
-  let result = "";
-
-  if (days) result = `${setPadStart(days)}j`;
-  if (hours) result = `${result} ${setPadStart(hours)}h`;
-  if (minutes) result = `${result} ${setPadStart(minutes)}m`;
-
-  return result.trim() || "00m";
 }
 
 export function setPadStart(str: string | number = "", num = 2, symbol = "0") {

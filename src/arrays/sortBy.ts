@@ -1,14 +1,14 @@
-import { ObjectType } from "../interfaces";
+import { NestedKeyOf, ObjectType } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-type DeterminantFunction<T> = (a: T, b: T) => -1 | 1;
+type Sorter<T> = (a: T, b: T) => -1 | 1;
 type SortOrder = "asc" | "desc";
 
 const getSortOrder = (order: SortOrder) =>
   order.toLowerCase() === "asc" ? -1 : 1;
 
-const asObject = <T>(list: T[], key: string, order: SortOrder = "asc") => {
-  return list.sort((a, b) => {
+const byKey = <T>(array: T[], key: string, order: SortOrder = "asc") => {
+  return array.sort((a, b) => {
     const a_val = getDeepValue(a as ObjectType, key);
     const b_val = getDeepValue(b as ObjectType, key);
 
@@ -24,16 +24,16 @@ const defaultSort = <T>(list: T[], order: SortOrder = "asc") => {
 };
 
 export const sortBy = <T>(
-  list: T[],
-  determinant?: DeterminantFunction<T> | string | null,
+  array: T[],
+  determinant?: Sorter<T> | NestedKeyOf<T>,
   order: SortOrder = "asc"
 ) => {
-  if (!determinant) return defaultSort(list, order);
+  const _list = Array.from(array);
+  if (!determinant) return defaultSort(_list, order);
 
   const detType = typeof determinant;
 
-  if (detType === "function")
-    return list.sort(determinant as DeterminantFunction<T>);
+  if (detType === "function") return _list.sort(determinant as Sorter<T>);
 
-  return asObject(list, determinant as string, order) as T[];
+  return byKey(_list, determinant as string, order) as T[];
 };

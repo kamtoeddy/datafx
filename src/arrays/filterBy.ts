@@ -1,17 +1,19 @@
-import { ObjectType } from "../interfaces";
+import { NestedKeyOf, ObjectType } from "../interfaces";
 import { getDeepValue, isSubObjectEqual } from "../objects";
 import { isEqual } from "../utils";
 
+type Filter<T> = (item: T, index: number, array: T[]) => boolean;
+type FilterAsObject<T> = Partial<{ [K in NestedKeyOf<T>]: any }>;
 type Options = { exclude?: boolean };
 
 const defaultOptions: Options = { exclude: false };
 
 const asArray = <T>(
-  list: T[],
+  array: T[],
   determinant: any,
   { exclude }: Options = defaultOptions
 ) => {
-  return list.filter((dt) => {
+  return array.filter((dt) => {
     const [key, value] = determinant;
     const dt_val = getDeepValue(dt as ObjectType, key);
 
@@ -21,15 +23,15 @@ const asArray = <T>(
   });
 };
 
-const asFunction = <T>(list: T[], determinant: any) =>
-  list.filter((dt) => determinant(dt));
+const asFunction = <T>(array: T[], determinant: any) =>
+  array.filter((dt) => determinant(dt));
 
 const asObject = <T>(
-  list: T[],
+  array: T[],
   determinant: any,
   { exclude }: Options = defaultOptions
 ) => {
-  return list.filter((dt) => {
+  return array.filter((dt) => {
     let allowed = isSubObjectEqual(dt as ObjectType, determinant);
 
     return exclude ? !allowed : allowed;
@@ -37,17 +39,17 @@ const asObject = <T>(
 };
 
 export const filterBy = <T>(
-  list: T[],
-  determinant: any,
+  array: T[],
+  determinant: Filter<T> | FilterAsObject<T> | [NestedKeyOf<T>, any],
   options: Options = defaultOptions
 ) => {
-  if (!determinant) return list;
+  if (!determinant) return array;
 
   const detType = typeof determinant;
 
-  if (detType === "function") return asFunction(list, determinant);
+  if (detType === "function") return asFunction(array, determinant);
 
-  if (Array.isArray(determinant)) return asArray(list, determinant, options);
+  if (Array.isArray(determinant)) return asArray(array, determinant, options);
 
-  return asObject(list, determinant, options);
+  return asObject(array, determinant, options);
 };

@@ -2,6 +2,10 @@ export const removeAt_Tests = ({ removeAt }: { removeAt: Function }) => {
   describe("removeAt", () => {
     const arr = [1, 2, 3, 4, 5, -45];
 
+    it("should remove the first item with no startIndex & no deleteCount", () => {
+      expect(removeAt([...arr])).toEqual([2, 3, 4, 5, -45]);
+    });
+
     it("should remove items at specified indices", () => {
       const values = [
         [[...arr], 0, 1, [2, 3, 4, 5, -45]],

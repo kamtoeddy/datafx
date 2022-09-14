@@ -12,12 +12,10 @@ import {
   isDivisibleBy,
   isEven,
   isPrime,
-  getInteger,
-} from "../../../dist/numbers";
+} from "../../../dist";
 
 getOrdinalPosition_Tests({ getOrdinalPosition });
 getRandom_Tests({ getRandom });
 isEven_Tests({ isEven });
 isDivisibleBy_Tests({ isDivisibleBy });
 isPrime_Tests({ isPrime });
-getInteger_Tests({ getInteger });
