@@ -4,7 +4,7 @@ This is a set of small utility fucntions used to manipulated strings, numbers, a
 
 ## Docs
 
-- [Arrays]
+- Arrays
   - [countBy](./docs/v0.1.0/arrays/countBy.md#countBy)
   - [filterBy](./docs/v0.1.0/arrays/filterBy.md#filterBy)
   - [findBy](./docs/v0.1.0/arrays/findBy.md#findBy)
@@ -19,5 +19,7 @@ This is a set of small utility fucntions used to manipulated strings, numbers, a
   - [isBefore](./docs/v0.1.0/dates/index.md#isbefore)
   - [getTimeLeft](./docs/v0.1.0/dates/getTimeLeft.md#get-time-left)
 - [Numbers](./docs/v0.1.0/numbers.md)
+- Objects
+  - [assignDeep](./docs/v0.1.0/objects/assignDeep.md#assigndeep)
 - [Translator](./docs/v0.1.0/translator.md#translator)
 - [Changelog](./docs/v0.1.0/CHANGELOG.md#changelog)
