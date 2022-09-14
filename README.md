@@ -23,5 +23,6 @@ This is a set of small utility fucntions used to manipulated strings, numbers, a
   - [assignDeep](./docs/v0.1.0/objects/assignDeep.md#assigndeep)
   - [clone](./docs/v0.1.0/objects/clone.md#clone)
   - [getDeepValue](./docs/v0.1.0/objects/getDeepValue.md#getDeepValue)
+  - [removeDeep](./docs/v0.1.0/objects/removeDeep.md#removeDeep)
 - [Translator](./docs/v0.1.0/translator.md#translator)
 - [Changelog](./docs/v0.1.0/CHANGELOG.md#changelog)
