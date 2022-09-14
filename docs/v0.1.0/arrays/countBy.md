@@ -49,7 +49,7 @@ countBy(users, "bio.followers");
 
 ## By Function
 
-This function accepts one of the items in the array to count at a time. Whatever is returned from this function will be used as a key of the returned count object.
+This function accepts one of the items in the array to count at a time. Whatever is returned from this function will be used as a key of the returned object.
 
 ```js
 const counter = (item) => (typeof item === "object" && item ? "object" : item);
