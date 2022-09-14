@@ -35,9 +35,9 @@ sortBy(users, "name");
 sortBy(users, "bio.followers", "desc");
 // [
 //   { name: "Bob", bio: { followers: 300 } },
+//   { name: "Mary", bio: { followers: 275 } },
 //   { name: "Doe", bio: { followers: 250 } },
 //   { name: "James", bio: { followers: 220 } },
-//   { name: "Mary", bio: { followers: 275 } },
 // ];
 ```
 
