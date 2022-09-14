@@ -1,6 +1,6 @@
 ## Data Fx
 
-This is a set of small utility functions used to manipulated strings, numbers, arrays, dates & objects. It also has a translator class to help you with localizations within your applications
+This is a set of small utility functions used to manipulate strings, numbers, arrays, dates & objects. It also has a translator class to help you with localizations within your applications
 
 ## Docs
 
