@@ -9,6 +9,7 @@ This is a set of small utility fucntions used to manipulated strings, numbers, a
   - [filterBy](./docs/v0.1.0/arrays/filterBy.md#filterBy)
   - [findBy](./docs/v0.1.0/arrays/findBy.md#findBy)
   - [getListOf](./docs/v0.1.0/arrays/getListOf.md#getListOf)
+  - [getUniqueBy](./docs/v0.1.0/arrays/getUniqueBy.md#getUniqueBy)
   - [sortBy](./docs/v0.1.0/arrays/sortBy.md#sortby)
 - [Dates](./docs/v0.1.0/dates/index.md#supported-units)
   - [add](./docs/v0.1.0/dates/index.md#add)

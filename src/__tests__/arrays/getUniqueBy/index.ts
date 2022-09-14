@@ -45,10 +45,22 @@ export const getUniqueBy_Tests = ({
       expect(getUniqueBy(values, "age").length).toBe(1);
     });
 
-    it("should respect the backwards option", () => {
+    it("should return an array of unique values with a nested key", () => {
+      const values = [
+        { name: "James", bio: { followers: 300 } },
+        { name: "Mary", bio: { followers: 275 } },
+        { name: "Bob", bio: { followers: 300 } },
+        { name: "James", bio: { followers: 220 } },
+        { name: "Doe", bio: { followers: 250 } },
+      ];
+
+      expect(getUniqueBy(values, "bio.followers").length).toBe(4);
+    });
+
+    it("should respect the fromBack option", () => {
       const values = [1, 2, 4, 74, 40, -34, 0, 10];
 
-      expect(getUniqueBy(values, undefined, { backwards: true })).toEqual(
+      expect(getUniqueBy(values, undefined, { fromBack: true })).toEqual(
         [...values].reverse()
       );
     });

@@ -2,7 +2,7 @@
 
 It takes an array and a key or nested key(string) as first and second parameters respectively. The key is used to extract the values from each item in the array and the list of these values is returned.
 
-It also takes an object as third parameter(optional). This object has a property; `unique` (boolean). If unique is true, the list of values returned would only be comprised of unique values.
+It also takes an object as third parameter(optional). This object has a property; `unique` (boolean). If unique is true, the list of values returned would only be comprised of unique values. By default unique is `false`
 
 Example:
 

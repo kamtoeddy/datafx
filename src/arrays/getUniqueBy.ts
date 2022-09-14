@@ -1,7 +1,7 @@
 import { NestedKeyOf, ObjectType } from "../interfaces";
 import { getDeepValue } from "../objects";
 
-type Options = { backwards?: boolean };
+type Options = { fromBack?: boolean };
 
 export const serialize = (dt: any, revert = false) => {
   try {
@@ -22,11 +22,11 @@ export const getUnique = <T>(array: T[]) => {
 export const getUniqueBy = <T>(
   array: T[],
   key?: NestedKeyOf<T>,
-  { backwards }: Options = { backwards: false }
+  { fromBack }: Options = { fromBack: false }
 ) => {
   let _array = Array.from(array);
 
-  if (backwards) _array = _array.reverse();
+  if (fromBack) _array = _array.reverse();
 
   if (!key) return getUnique(_array) as T[];
 
