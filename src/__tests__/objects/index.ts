@@ -100,7 +100,7 @@ export const getDifference_Tests = ({
     c = { name: "Jo", age: 13 };
 
   describe("getDifference", () => {
-    it("should give differenc btw 2 objects wrt their properties", () => {
+    it("should give difference btw 2 objects wrt their properties", () => {
       expect(getDifference(a, a)).toMatchObject({});
       expect(getDifference(a, b)).toMatchObject({ name: "Joe" });
       expect(getDifference(b, a)).toMatchObject({ name: "Jo", age: 12 });
