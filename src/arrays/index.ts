@@ -1,7 +1,6 @@
 export * from "./countBy";
 export * from "./filterBy";
 export * from "./findBy";
-export * from "./getItemsAt";
 export * from "./getListOf";
 export { getUniqueBy } from "./getUniqueBy";
 export * from "./groupBy";
