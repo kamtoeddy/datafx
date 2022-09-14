@@ -26,6 +26,10 @@
   "license": "ISC",
   "main": "dist/index.js",
   "name": "datafx",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kamtoeddy/datafx.git"
+  },
   "scripts": {
     "build": "tsc",
     "clean-up": "rm -rf coverage dist",
@@ -35,5 +39,5 @@
     "prepare": "npm run clean-up && npm run build"
   },
   "types": "dist/index.d.ts",
-  "version": "0.2.0"
+  "version": "0.2.1"
 }
