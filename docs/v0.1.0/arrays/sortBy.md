@@ -26,17 +26,18 @@ const users = [
 
 sortBy(users, "name");
 // [
-//   { name: "Bob", bio: { followers: 300 } },
-//   { name: "Doe", bio: { followers: 250 } },
 //   { name: "James", bio: { followers: 220 } },
+//   { name: "Doe", bio: { followers: 250 } },
 //   { name: "Mary", bio: { followers: 275 } },
+//   { name: "Bob", bio: { followers: 300 } },
 // ];
+
 sortBy(users, "bio.followers", "desc");
 // [
-//   { name: "James", bio: { followers: 220 } },
-//   { name: "Doe", bio: { followers: 250 } },
-//   { name: "Mary", bio: { followers: 275 } },
 //   { name: "Bob", bio: { followers: 300 } },
+//   { name: "Doe", bio: { followers: 250 } },
+//   { name: "James", bio: { followers: 220 } },
+//   { name: "Mary", bio: { followers: 275 } },
 // ];
 ```
 
@@ -51,9 +52,9 @@ function sorter(a, b) {
 
 sortBy(users, sorter);
 // [
-//   { name: "Bob", bio: { followers: 300 } },
-//   { name: "Doe", bio: { followers: 250 } },
 //   { name: "James", bio: { followers: 220 } },
+//   { name: "Doe", bio: { followers: 250 } },
 //   { name: "Mary", bio: { followers: 275 } },
+//   { name: "Bob", bio: { followers: 300 } },
 // ];
 ```
