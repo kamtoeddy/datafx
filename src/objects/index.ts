@@ -3,7 +3,7 @@ import { isEqual, toArray } from "../utils";
 
 export {
   assignDeep,
-  cloneDeep,
+  clone,
   getDeepValue,
   getDifference,
   getSubObject,
@@ -50,7 +50,7 @@ function assignDeep<T extends ObjectType>(
   return _assignDeep(data, key, value);
 }
 
-function cloneDeep<T>(dt: T): T {
+function clone<T>(dt: T): T {
   return dt === undefined ? dt : JSON.parse(JSON.stringify(dt));
 }
 

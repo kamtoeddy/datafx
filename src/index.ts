@@ -8,7 +8,15 @@ export {
   getOrdinalPosition,
   getRandom,
 } from "./numbers";
-export * from "./objects";
+export {
+  assignDeep,
+  clone,
+  getDeepValue,
+  getDifference,
+  getSubObject,
+  hasDeepKey,
+  removeDeep,
+} from "./objects";
 export * from "./optimizers";
 export * from "./Translator";
 export * from "./toBase64";
