@@ -7,6 +7,8 @@ Used to assign a value to an object. It takes the target object, the key and the
 Example:
 
 ```js
+import { assignDeep } from "datafx";
+
 const object = {};
 
 assignDeep(object, "name", "James");

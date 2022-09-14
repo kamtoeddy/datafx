@@ -5,6 +5,8 @@ Used to get the difference between two objects. It is read as: **How is `a` diff
 Example:
 
 ```js
+import { getDifference } from "datafx";
+
 const a = { name: "Joe" },
   b = { name: "Jo", age: 12 },
   c = { name: "Jo", age: 13 };
