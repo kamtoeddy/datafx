@@ -1,6 +1,6 @@
 # sortBy
 
-A function to help you sort an array. It takes in the array to sort as first parapemter, the deteminant (a function or string) used to compare the items of the array and the sort order as third argument. The second and third arguments optional.
+A function to help you sort an array. It takes in the array to sort as first argument, the deteminant (a function or string) used to compare the items of the array and the sort order as third argument. The second and third arguments optional.
 
 Example:
 
