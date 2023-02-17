@@ -29,4 +29,4 @@ This is a set of small utility functions used to manipulate strings, numbers, ar
   - [removeDeep](./docs/v0.1.0/objects/removeDeep.md#removeDeep)
 - [toBase64](./docs/v0.1.0/toBase64.md#toBase64)
 - [Translator](./docs/v0.1.0/translator.md#translator)
-- [Changelog](./docs/v0.1.0/CHANGELOG.md#changelog)
+- [Changelog](./docs/CHANGELOG.md#changelog)
