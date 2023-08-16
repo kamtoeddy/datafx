@@ -1,5 +1,10 @@
 # CHANGELOG
 
+# v0.2.4 <small><sup>16-08-2023</sup></small>
+
+- [Update] Update signature & types of `toBase64` utils
+- [Deprecated] Deprecated Translator
+
 # v0.2.3 <small><sup>17-02-2023</sup></small>
 
 - [Fix] fixed typings errors with typescript with 'groupBy' util
