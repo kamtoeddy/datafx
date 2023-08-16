@@ -1,12 +1,13 @@
-type Result<T> =
-  | { error: null; image: T }
-  | { error: ProgressEvent<FileReader>; image: null }
+type Result =
+  | { data: string; error: null }
+  | { data: null; error: ProgressEvent<FileReader> }
 
-export const toBase64 = async <T extends string | ArrayBuffer>(file: Blob) => {
-  return new Promise<Result<T>>((reslove) => {
+export const toBase64 = (file: Blob) => {
+  return new Promise<Result>((reslove) => {
     const reader = new FileReader()
     reader.readAsDataURL(file)
-    reader.onload = () => reslove({ error: null, image: reader.result as T })
-    reader.onerror = (error) => reslove({ error, image: null })
+    reader.onload = () =>
+      reslove({ data: reader.result, error: null } as Result)
+    reader.onerror = (error) => reslove({ data: null, error })
   })
 }

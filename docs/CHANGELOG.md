@@ -1,8 +1,12 @@
 # CHANGELOG
 
+# v0.2.5 <small><sup>16-08-2023</sup></small>
+
+- [Update] Update types of `toBase64` util
+
 # v0.2.4 <small><sup>16-08-2023</sup></small>
 
-- [Update] Update signature & types of `toBase64` utils
+- [Update] Update signature & types of `toBase64` util
 - [Deprecated] Deprecated Translator
 
 # v0.2.3 <small><sup>17-02-2023</sup></small>
