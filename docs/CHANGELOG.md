@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.2.6 <small><sup>22-08-2023</sup></small>
+
+- [Fix] Fix issue with `isEqual` not failing if objects compared have same keys but in different orders
+
 # v0.2.5 <small><sup>16-08-2023</sup></small>
 
 - [Update] Update types of `toBase64` util
