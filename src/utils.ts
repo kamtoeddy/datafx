@@ -9,7 +9,6 @@ export {
   isObject,
   isOneOf,
   setPadStart,
-  sort,
   sortKeys,
   toArray,
   useIf
@@ -79,12 +78,8 @@ function setPadStart(str: string | number = '', num = 2, symbol = '0') {
   return String(str).padStart(num, symbol)
 }
 
-function sort<T>(data: T[]): T[] {
-  return data.sort((a, b) => (a < b ? -1 : 1))
-}
-
 function sortKeys<T extends ObjectType>(object: T): T {
-  const keys = sort(Object.keys(object))
+  const keys = Object.keys(object).sort((a, b) => (a < b ? -1 : 1))
 
   return keys.reduce((prev, next: keyof T) => {
     prev[next] = object[next]
