@@ -1,12 +1,12 @@
-import { toArray, useIf } from "../utils";
-import { composeRatio, unitsAsMs } from "./utils";
-import { DateTimeUnit, DateType } from "./units";
+import { toArray, useIf } from '../utils'
+import { composeRatio, unitsAsMs } from './utils'
+import { DateTimeUnit, DateType } from './units'
 
 type TypeTimeLeft = { isOver: boolean } & {
-  [K in DateTimeUnit]?: number;
-};
+  [K in DateTimeUnit]?: number
+}
 
-const isNegative = (v: any) => isNaN(v) || v < 0;
+const isNegative = (v: any) => isNaN(v) || v < 0
 
 export const getTimeLeft = (
   endDateTime: DateType,
@@ -17,22 +17,22 @@ export const getTimeLeft = (
     Date.parse(new Date(endDateTime).toUTCString()) -
       Date.parse(new Date().toUTCString()),
     isNegative
-  );
+  )
 
-  const timeLeft: TypeTimeLeft = { isOver: true };
+  const timeLeft: TypeTimeLeft = { isOver: true }
 
-  const ratio = composeRatio(toArray(units));
+  const ratio = composeRatio(toArray(units))
 
   ratio.forEach(([unit, nextCoefficient]) => {
     const value =
       nextCoefficient === undefined
         ? Math.floor(totalInMs / unitsAsMs[unit])
-        : Math.floor((totalInMs / unitsAsMs[unit]) % nextCoefficient);
+        : Math.floor((totalInMs / unitsAsMs[unit]) % nextCoefficient)
 
-    if (value !== 0) timeLeft.isOver = false;
+    if (value !== 0) timeLeft.isOver = false
 
-    timeLeft[unit] = value;
-  });
+    timeLeft[unit] = value
+  })
 
-  return timeLeft;
-};
+  return timeLeft
+}

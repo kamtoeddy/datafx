@@ -1,4 +1,4 @@
-import { ObjectType } from './interfaces'
+import { ObjectType } from './types'
 
 export {
   capitalise,
@@ -88,7 +88,7 @@ function sortKeys<T extends ObjectType>(object: T): T {
   }, {} as T)
 }
 
-const useIf = (alternate: any, v: any, determinant?: (v: any) => boolean) => {
+function useIf(alternate: any, v: any, determinant?: (v: any) => boolean) {
   if (!determinant) return v ? v : alternate
 
   return determinant(v) ? alternate : v
