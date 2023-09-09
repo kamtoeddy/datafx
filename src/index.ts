@@ -5,6 +5,7 @@ export * from './objects'
 export * from './optimizers'
 export * from './Translator'
 export * from './utils'
+export * from './types'
 
 export { toBase64 }
 

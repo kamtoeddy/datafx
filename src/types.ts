@@ -4,7 +4,9 @@ export type StringKey<T> = Extract<keyof T, string>
 
 export type NestedKeyOf<T> = T extends ObjectType
   ? {
-      [Key in keyof T & (string | number)]: T[Key] extends object
+      [Key in keyof T & (string | number)]: T[Key] extends Array<any>
+        ? Key
+        : T[Key] extends ObjectType
         ? `${Key}` | `${Key}.${NestedKeyOf<T[Key]>}`
         : `${Key}`
     }[keyof T & (string | number)]

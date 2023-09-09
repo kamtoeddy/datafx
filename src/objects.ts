@@ -26,7 +26,7 @@ function _assignDeep<T extends ObjectType>(
   key: NestedKeyOf<T> | string[],
   value: any
 ): ObjectType {
-  key = getKeys(key)
+  key = getKeys(key as any)
 
   const _key = key.shift()! as keyof T
 
@@ -56,7 +56,9 @@ function clone<T>(dt: T): T {
 }
 
 function getDeepValue<T extends ObjectType>(data: T, key: NestedKeyOf<T>): any {
-  return key.split('.').reduce((prev, next) => prev?.[next], data)
+  return (key as any)
+    .split('.')
+    .reduce((prev: any, next: any) => prev?.[next], data)
 }
 
 /**
@@ -93,7 +95,7 @@ function _hasDeepKey<T extends ObjectType>(
   obj: T,
   key: NestedKeyOf<T> | string[]
 ): boolean {
-  key = getKeys(key)
+  key = getKeys(key as any)
 
   const _key = key.shift()
 
@@ -149,5 +151,5 @@ function _removeDeep<T extends ObjectType>(
 }
 
 function removeDeep<T extends ObjectType>(obj: T, key: NestedKeyOf<T>) {
-  return _removeDeep(obj, key)
+  return _removeDeep(obj, key as any)
 }
