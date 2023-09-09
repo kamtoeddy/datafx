@@ -1,4 +1,4 @@
-import { ObjectType } from './interfaces'
+import { ObjectType } from './types'
 
 export {
   capitalise,
@@ -9,6 +9,7 @@ export {
   isObject,
   isOneOf,
   setPadStart,
+  sortArray,
   sortKeys,
   toArray,
   useIf
@@ -34,7 +35,15 @@ const capitalise = (value: string) => {
   return _capitalised
 }
 
-function isEqual(a: any, b: any) {
+/**
+ * tell whether `a` & `b` are equals
+ * @param {any} a
+ * @param {any} b
+ * @param {number|undefined} depth how deep in nesting should equality checks be performed for objects
+ * @returns {boolean}
+ */
+
+function isEqual(a: any, b: any, depth: number = 1): boolean {
   const typeOfA = typeof a
 
   if (typeOfA != typeof b) return false
@@ -44,10 +53,20 @@ function isEqual(a: any, b: any) {
   if (['bigint', 'boolean', 'number', 'string', 'symbol'].includes(typeOfA))
     return a == b
 
-  const refA = isNullOrUndefined(a) ? a : JSON.stringify(sortKeys(a))
-  const refB = isNullOrUndefined(b) ? b : JSON.stringify(sortKeys(b))
+  if (isNullOrUndefined(a) || isNullOrUndefined(b)) return a == b
 
-  return refA == refB
+  let keysOfA = Object.keys(a),
+    keysOfB = Object.keys(b)
+
+  if (keysOfA.length != keysOfB.length) return false
+  ;(keysOfA = sortArray(keysOfA)), (keysOfB = sortArray(keysOfB))
+
+  if (JSON.stringify(keysOfA) != JSON.stringify(keysOfB)) return false
+
+  if (depth > 0 && keysOfA.length)
+    return keysOfA.every((key) => isEqual(a[key], b[key], depth - 1))
+
+  return JSON.stringify(sortKeys(a)) == JSON.stringify(sortKeys(b))
 }
 
 function isFunction(value: any): value is Function {
@@ -78,17 +97,19 @@ function setPadStart(str: string | number = '', num = 2, symbol = '0') {
   return String(str).padStart(num, symbol)
 }
 
-function sortKeys<T extends ObjectType>(object: T): T {
-  const keys = Object.keys(object).sort((a, b) => (a < b ? -1 : 1))
+function sortArray<T>(array: T[]) {
+  return array.sort((a, b) => (a < b ? -1 : 1))
+}
 
-  return keys.reduce((prev, next: keyof T) => {
+function sortKeys<T extends ObjectType>(object: T): T {
+  return sortArray(Object.keys(object)).reduce((prev, next: keyof T) => {
     prev[next] = object[next]
 
     return prev
   }, {} as T)
 }
 
-const useIf = (alternate: any, v: any, determinant?: (v: any) => boolean) => {
+function useIf(alternate: any, v: any, determinant?: (v: any) => boolean) {
   if (!determinant) return v ? v : alternate
 
   return determinant(v) ? alternate : v

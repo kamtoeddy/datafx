@@ -1,4 +1,4 @@
-import { ObjectType, StringKey } from './interfaces'
+import { ObjectType, StringKey } from './types'
 import { getDeepValue } from './objects'
 
 export { Translator }
