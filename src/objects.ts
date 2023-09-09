@@ -9,6 +9,7 @@ export {
   getSubObject,
   hasDeepKey,
   isDeepKeyed,
+  isSubObjectEqual,
   removeDeep
 }
 
@@ -115,7 +116,7 @@ function isDeepKeyed(obj: ObjectType) {
   return Object.keys(obj).some((key) => key.split('.').length > 1)
 }
 
-export const isSubObjectEqual = (dt: ObjectType, expected: ObjectType) => {
+function isSubObjectEqual(dt: ObjectType, expected: ObjectType) {
   const keys = Object.keys(expected)
 
   const sub = getSubObject(dt as ObjectType, keys)

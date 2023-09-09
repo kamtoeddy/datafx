@@ -42,9 +42,87 @@ export const isEqual_Tests = ({ isEqual }: { isEqual: Function }) => {
       )
       expect(isEqual({ a: 'James' }, { a: 'JameS' })).toEqual(false)
       expect(isEqual({ a: 'James' }, { a: 'James', b: 17 })).toEqual(false)
+    })
+
+    it('should respect the level of nesting(depth)', () => {
+      // depth == undefined (defaults to 1)
+
+      for (const depth of [undefined, 1]) {
+        expect(
+          isEqual({ a: '', b: { c: '' } }, { b: { c: '' }, a: '' }, depth)
+        ).toEqual(true)
+
+        expect(
+          isEqual({ a: '', b: [1, 2] }, { b: [1, 2], a: '' }, depth)
+        ).toEqual(true)
+
+        expect(
+          isEqual(
+            { a: '', b: { c: '', d: [1, 2] } },
+            { b: { d: [1, 2], c: '' }, a: '' },
+            depth
+          )
+        ).toEqual(true)
+
+        expect(
+          isEqual(
+            { a: '', b: { d: '', c: '' } },
+            { b: { c: '', d: '' }, a: '' },
+            depth
+          )
+        ).toEqual(true)
+      }
+
+      // depth == 0
       expect(
-        isEqual({ a: '', b: { d: '', c: '' } }, { b: { c: '', d: '' }, a: '' })
+        isEqual({ a: '', b: { c: '' } }, { b: { c: '' }, a: '' }, 0)
+      ).toEqual(true)
+
+      expect(isEqual({ a: '', b: [1, 2] }, { b: [1, 2], a: '' }, 0)).toEqual(
+        true
+      )
+
+      expect(
+        isEqual(
+          { a: '', b: { c: '', d: [1, 2] } },
+          { b: { d: [1, 2], c: '' }, a: '' },
+          0
+        )
       ).toEqual(false)
+
+      expect(
+        isEqual(
+          { a: '', b: { d: '', c: '' } },
+          { b: { c: '', d: '' }, a: '' },
+          0
+        )
+      ).toEqual(false)
+
+      for (const depth of [2, 3, Infinity]) {
+        expect(
+          isEqual({ a: '', b: { c: '' } }, { b: { c: '' }, a: '' }, depth)
+        ).toEqual(true)
+
+        expect(
+          isEqual({ a: '', b: [1, 2] }, { b: [1, 2], a: '' }, depth)
+        ).toEqual(true)
+
+        expect(
+          isEqual(
+            { a: '', b: { c: '', d: [1, 2] } },
+            { b: { d: [1, 2], c: '' }, a: '' },
+            depth
+          )
+        ).toEqual(true)
+
+        expect(
+          isEqual(
+            { a: '', b: { d: '', c: '' } },
+            { b: { c: '', d: '' }, a: '' },
+            depth
+          )
+        ).toEqual(true)
+      }
     })
   })
 }

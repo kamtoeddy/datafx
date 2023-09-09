@@ -1,12 +1,11 @@
-export type ObjectType = Record<number | string, any>;
-export type StringKey<T> = Extract<keyof T, string>;
+export type ObjectKey = string | number | symbol
+export type ObjectType<K extends ObjectKey = ObjectKey> = Record<K, any>
+export type StringKey<T> = Extract<keyof T, string>
 
-export type NestedKeyOf<T> = T extends never
-  ? ""
-  : {
-      [K in StringKey<T>]: T[K] extends Function
-        ? never
-        : T[K] extends Array<any>
-        ? `${K}.${NestedKeyOf<T[K]>}`
-        : `${K}` | `${K}.${NestedKeyOf<T[K]>}`;
-    }[StringKey<T>];
+export type NestedKeyOf<T> = T extends ObjectType
+  ? {
+      [Key in keyof T & (string | number)]: T[Key] extends object
+        ? `${Key}` | `${Key}.${NestedKeyOf<T[Key]>}`
+        : `${Key}`
+    }[keyof T & (string | number)]
+  : ''

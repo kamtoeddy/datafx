@@ -1,15 +1,25 @@
-import { NestedKeyOf, ObjectType } from '../types'
-import { getDeepValue, isSubObjectEqual } from '../objects'
-import { isEqual } from '../utils'
+import { NestedKeyOf, ObjectKey, ObjectType } from './types'
+import { getDeepValue, isSubObjectEqual } from './objects'
+import { isEqual } from './utils'
 
-export { getUniqueBy } from './getUniqueBy'
+export {
+  countBy,
+  filterBy,
+  findBy,
+  getListOf,
+  getUniqueBy,
+  groupBy,
+  removeAt,
+  sortBy
+}
 
-export { countBy, findBy, getListOf, groupBy, removeAt, sortBy }
+type Counter<T> = (item: T) => ObjectKey
 
-type Counter<T> = (item: T) => any
-
-function countBy<T>(array: T[], determinant?: Counter<T> | NestedKeyOf<T>) {
-  if (!array) return []
+function countBy<T, OutputKeys extends ObjectKey = ObjectKey>(
+  array: T[],
+  determinant?: Counter<T> | NestedKeyOf<T>
+) {
+  if (!array || !Array.isArray(array)) return {} as ObjectType<OutputKeys>
 
   if (!determinant) return _countInstances(array)
 
@@ -18,10 +28,10 @@ function countBy<T>(array: T[], determinant?: Counter<T> | NestedKeyOf<T>) {
   return array.reduce((prev, next) => {
     const key = asFx
       ? determinant(next)
-      : getDeepValue(next as ObjectType, determinant)
+      : getDeepValue(next as any, determinant as any)
 
     return _incrementKey(key, prev)
-  }, {} as ObjectType)
+  }, {} as ObjectType<OutputKeys>)
 }
 
 function _incrementKey(key: string, obj: ObjectType) {
@@ -44,7 +54,7 @@ type FilterOptions = { exclude?: boolean }
 
 const defaultOptions: FilterOptions = { exclude: false }
 
-export function filterBy<T>(
+function filterBy<T>(
   array: T[],
   determinant: Filter<T> | FilterAsObject<T> | [NestedKeyOf<T>, any],
   options: FilterOptions = defaultOptions
@@ -131,11 +141,50 @@ function getListOf<T, K extends any>(
   return unique ? Array.from(new Set(_array)) : _array
 }
 
-type Grouper<T> = (item: T) => any
-type GroupedMap<T> = Record<NestedKeyOf<T>, T[]>
+type GetUniqueByOptions = { fromBack?: boolean }
 
-function groupBy<T>(array: T[], determinant: Grouper<T> | NestedKeyOf<T>) {
-  if (!array) return {} as GroupedMap<T>
+function getUniqueBy<T>(
+  array: T[],
+  key?: NestedKeyOf<T>,
+  { fromBack }: GetUniqueByOptions = { fromBack: false }
+) {
+  let _array = Array.from(array)
+
+  if (fromBack) _array = _array.reverse()
+
+  if (!key) return _getUnique(_array) as T[]
+
+  let obj: ObjectType = {}
+
+  _array.forEach((dt) => (obj[getDeepValue(dt as ObjectType, key)] = dt))
+
+  return Object.values(obj) as T[]
+}
+
+function _serialize(dt: any, revert = false) {
+  try {
+    return revert ? JSON.parse(dt) : JSON.stringify(dt)
+  } catch (err) {
+    return dt
+  }
+}
+
+function _getUnique<T>(array: T[]) {
+  let _array = array.map((dt) => _serialize(dt))
+
+  _array = Array.from(new Set(_array))
+
+  return _array.map((dt) => _serialize(dt, true))
+}
+
+type Grouper<T> = (item: T) => ObjectKey
+type GroupedMap<T, OutputKeys extends ObjectKey> = Record<OutputKeys, T[]>
+
+function groupBy<T, OutputKeys extends ObjectKey = string>(
+  array: T[],
+  determinant: Grouper<T> | NestedKeyOf<T>
+) {
+  if (!array) return {} as GroupedMap<T, OutputKeys>
 
   const asFx = typeof determinant === 'function'
 
@@ -149,10 +198,15 @@ function groupBy<T>(array: T[], determinant: Grouper<T> | NestedKeyOf<T>) {
 
     if (key === undefined) return prev
 
-    prev.hasOwnProperty(key) ? prev[key].push(next) : (prev[key] = [next])
+    // @ts-ignore
+    prev.hasOwnProperty(key)
+      ? // @ts-ignore
+        prev[key].push(next)
+      : // @ts-ignore
+        (prev[key] = [next as any])
 
     return prev
-  }, {} as GroupedMap<T>)
+  }, {} as GroupedMap<T, OutputKeys>)
 }
 
 function removeAt<T>(array: T[], start = 0, deleteCount = 1) {
