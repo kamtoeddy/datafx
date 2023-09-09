@@ -15,13 +15,13 @@ export {
 
 type Counter<T> = (item: T) => ObjectKey
 
-function countBy<T, OutputKeys extends ObjectKey = ObjectKey>(
+function countBy<T, OutputKeys extends ObjectKey = string>(
   array: T[],
   determinant?: Counter<T> | NestedKeyOf<T>
 ) {
   if (!array || !Array.isArray(array)) return {} as ObjectType<OutputKeys>
 
-  if (!determinant) return _countInstances(array)
+  if (!determinant) return _countInstances(array) as ObjectType<OutputKeys>
 
   const asFx = typeof determinant === 'function'
 
