@@ -1,13 +1,13 @@
-import { ObjectType } from './types'
+import { ObjectKey, ObjectType } from './types'
 
 export {
   capitalise,
   isEqual,
   isFunction,
-  isKeyOf,
   isNullOrUndefined,
   isObject,
   isOneOf,
+  isPropertyOf,
   setPadStart,
   sortArray,
   sortKeys,
@@ -73,10 +73,6 @@ function isFunction(value: any): value is Function {
   return typeof value === 'function'
 }
 
-function isKeyOf(prop: string | number, object: any): prop is keyof object {
-  return Object.hasOwnProperty.call(object, prop)
-}
-
 function isNullOrUndefined(value: any): value is null | undefined {
   return isOneOf(value, [null, undefined])
 }
@@ -87,6 +83,10 @@ function isObject(value: any): value is ObjectType {
 
 function isOneOf<T>(value: any, values: T[]): value is T {
   return values.includes(value)
+}
+
+function isPropertyOf<T>(prop: ObjectKey, object: T): prop is keyof T {
+  return Object.hasOwnProperty.call(object, prop)
 }
 
 function toArray<T>(value: T | T[]): T[] {

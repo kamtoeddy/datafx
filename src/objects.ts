@@ -1,5 +1,5 @@
 import { ObjectType, NestedKeyOf } from './types'
-import { isEqual, toArray } from './utils'
+import { isEqual, isPropertyOf, toArray } from './utils'
 
 export {
   assignDeep,
@@ -16,9 +16,6 @@ export {
 // helpers
 const getKeys = (key: string | string[]) =>
   Array.isArray(key) ? key : key.split('.')
-
-const hasProp = (obj: ObjectType | undefined = {}, prop = '') =>
-  obj?.hasOwnProperty(prop)
 
 // methods
 function _assignDeep<T extends ObjectType>(
@@ -101,7 +98,7 @@ function _hasDeepKey<T extends ObjectType>(
 
   if (!_key || !obj) return false
 
-  const keyFound = hasProp(obj, _key)
+  const keyFound = isPropertyOf(_key, obj)
 
   if (!keyFound && key.length) return false
 
