@@ -33,11 +33,11 @@
   "scripts": {
     "build": "tsc",
     "clean-up": "rm -rf coverage dist",
-    "test": "tsc & jest --verbose --watchAll",
-    "test-c": "tsc & jest --verbose --watchAll --coverage",
-    "test:ci": "tsc & jest --verbose",
+    "test": "tsc & jest --verbose",
+    "test:cov": "tsc & jest --verbose --watchAll --coverage",
+    "test:watch": "tsc & jest --verbose --watchAll",
     "prepare": "npm run clean-up && npm run build"
   },
   "types": "dist/index.d.ts",
-  "version": "0.2.9"
+  "version": "0.2.10"
 }
