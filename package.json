@@ -39,5 +39,5 @@
     "prepare": "npm run clean-up && npm run build"
   },
   "types": "dist/index.d.ts",
-  "version": "0.2.9"
+  "version": "0.2.10"
 }
