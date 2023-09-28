@@ -69,7 +69,7 @@ function getDifference(a: ObjectType, b: ObjectType) {
 
   const diff: ObjectType = {}
 
-  for (let key in a) {
+  for (let key in a as ObjectType) {
     if (isEqual(a[key], b[key])) continue
 
     diff[key] = a[key]

@@ -43,20 +43,12 @@ const capitalise = (value: string) => {
  * @returns {boolean}
  */
 
-function isEqual(a: any, b: any, depth: number = 1): boolean {
-  const typeOfA = typeof a
-
-  if (typeOfA != typeof b) return false
-
-  if (typeOfA == 'undefined') return true
-
-  if (['bigint', 'boolean', 'number', 'string', 'symbol'].includes(typeOfA))
-    return a == b
-
-  if (isNullOrUndefined(a) || isNullOrUndefined(b)) return a == b
+function isEqual<T>(a: any, b: T, depth: number = 1): a is T {
+  if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))
+    return a === b
 
   let keysOfA = Object.keys(a),
-    keysOfB = Object.keys(b)
+    keysOfB = Object.keys(b as any)
 
   if (keysOfA.length != keysOfB.length) return false
   ;(keysOfA = sortArray(keysOfA)), (keysOfB = sortArray(keysOfB))
@@ -64,9 +56,9 @@ function isEqual(a: any, b: any, depth: number = 1): boolean {
   if (JSON.stringify(keysOfA) != JSON.stringify(keysOfB)) return false
 
   if (depth > 0 && keysOfA.length)
-    return keysOfA.every((key) => isEqual(a[key], b[key], depth - 1))
+    return keysOfA.every((key) => isEqual(a[key], (b as any)[key], depth - 1))
 
-  return JSON.stringify(sortKeys(a)) == JSON.stringify(sortKeys(b))
+  return JSON.stringify(sortKeys(a)) == JSON.stringify(sortKeys(b as any))
 }
 
 function isFunction(value: any): value is Function {
