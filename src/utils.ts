@@ -36,13 +36,9 @@ const capitalise = (value: string) => {
 }
 
 /**
- * tell whether `a` & `b` are equals
- * @param {any} a
- * @param {any} b
- * @param {number|undefined} depth how deep in nesting should equality checks be performed for objects
- * @returns {boolean}
+ * tells whether `a` & `b` are equals
+ * @param  depth how deep in nesting should equality checks be performed for objects
  */
-
 function isEqual<T>(a: any, b: T, depth: number = 1): a is T {
   if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))
     return a === b
