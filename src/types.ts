@@ -10,4 +10,4 @@ export type NestedKeyOf<T> = T extends ObjectType
         ? `${Key}` | `${Key}.${NestedKeyOf<T[Key]>}`
         : `${Key}`
     }[keyof T & (string | number)]
-  : ''
+  : StringKey<T>

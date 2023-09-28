@@ -1,31 +1,31 @@
 export const debounce = (cb: Function, delay: number) => {
-  let timeout: number | undefined;
+  let timeout: NodeJS.Timeout
   return (...args: any) => {
-    clearTimeout(timeout);
+    clearTimeout(timeout)
 
-    timeout = setTimeout(() => cb(...args), delay ?? 1000);
-  };
-};
+    timeout = setTimeout(() => cb(...args), delay ?? 1000)
+  }
+}
 
 export const throttle = (cb: Function, delay: number) => {
-  let shouldWait = false;
-  let waitingArgs: any[] | null;
+  let shouldWait = false
+  let waitingArgs: any[] | null
 
   const timeoutFunc = () => {
-    if (!waitingArgs) return (shouldWait = false);
+    if (!waitingArgs) return (shouldWait = false)
 
-    cb(...waitingArgs);
-    waitingArgs = null;
+    cb(...waitingArgs)
+    waitingArgs = null
 
-    setTimeout(timeoutFunc, delay ?? 1000);
-  };
+    setTimeout(timeoutFunc, delay ?? 1000)
+  }
 
   return (...args: any) => {
-    if (shouldWait) return (waitingArgs = args);
+    if (shouldWait) return (waitingArgs = args)
 
-    cb(...args);
-    shouldWait = true;
+    cb(...args)
+    shouldWait = true
 
-    setTimeout(timeoutFunc, delay ?? 1000);
-  };
-};
+    setTimeout(timeoutFunc, delay ?? 1000)
+  }
+}

@@ -1,3 +1,5 @@
+import { describe, it, expect } from 'vitest'
+
 export const capitalise_Tests = ({ capitalise }: { capitalise: Function }) => {
   describe('capitalize', () => {
     it('should return a string in capital leters', () => {
