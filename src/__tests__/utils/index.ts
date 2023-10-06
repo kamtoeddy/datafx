@@ -36,7 +36,9 @@ export const isEqual_Tests = ({ isEqual }: { isEqual: Function }) => {
       )
 
       // falsy
-      expect(isEqual(now, new Date())).toBe(false)
+      expect(
+        isEqual(now, new Date(new Date(now).setHours(now.getHours() + 10)))
+      ).toBe(false)
       expect(isEqual(1, '1')).toBe(false)
       expect(isEqual({}, '1')).toBe(false)
       expect(isEqual([1, 'true', []], [1, 'true', '[]'])).toBe(false)
