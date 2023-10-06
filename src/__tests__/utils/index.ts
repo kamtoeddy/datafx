@@ -20,30 +20,29 @@ export const isEqual_Tests = ({ isEqual }: { isEqual: Function }) => {
   describe('isEqual', () => {
     it('should return true if a and b are equal else false', () => {
       // truthy
-      expect(isEqual(1, 1)).toEqual(true)
-      expect(isEqual({}, {})).toEqual(true)
-      expect(isEqual([], [])).toEqual(true)
-      expect(isEqual(undefined, undefined)).toEqual(true)
-      expect(isEqual([1, 'true', [], null], [1, 'true', [], null])).toEqual(
-        true
-      )
-      expect(isEqual({ a: 'James' }, { a: 'James' })).toEqual(true)
-      expect(isEqual({ a: '' }, { a: '' })).toEqual(true)
-      expect(isEqual({ a: '', b: '' }, { a: '', b: '' })).toEqual(true)
-      expect(isEqual({ a: '', b: '' }, { b: '', a: '' })).toEqual(true)
-      expect(isEqual({ a: '', b: { c: '' } }, { b: { c: '' }, a: '' })).toEqual(
+      const now = new Date()
+      expect(isEqual(now, now)).toBe(true)
+      expect(isEqual(1, 1)).toBe(true)
+      expect(isEqual({}, {})).toBe(true)
+      expect(isEqual([], [])).toBe(true)
+      expect(isEqual(undefined, undefined)).toBe(true)
+      expect(isEqual([1, 'true', [], null], [1, 'true', [], null])).toBe(true)
+      expect(isEqual({ a: 'James' }, { a: 'James' })).toBe(true)
+      expect(isEqual({ a: '' }, { a: '' })).toBe(true)
+      expect(isEqual({ a: '', b: '' }, { a: '', b: '' })).toBe(true)
+      expect(isEqual({ a: '', b: '' }, { b: '', a: '' })).toBe(true)
+      expect(isEqual({ a: '', b: { c: '' } }, { b: { c: '' }, a: '' })).toBe(
         true
       )
 
       // falsy
-      expect(isEqual(1, '1')).toEqual(false)
-      expect(isEqual({}, '1')).toEqual(false)
-      expect(isEqual([1, 'true', []], [1, 'true', '[]'])).toEqual(false)
-      expect(isEqual([1, 'true', [], null], [1, 'true', null, []])).toEqual(
-        false
-      )
-      expect(isEqual({ a: 'James' }, { a: 'JameS' })).toEqual(false)
-      expect(isEqual({ a: 'James' }, { a: 'James', b: 17 })).toEqual(false)
+      expect(isEqual(now, new Date())).toBe(false)
+      expect(isEqual(1, '1')).toBe(false)
+      expect(isEqual({}, '1')).toBe(false)
+      expect(isEqual([1, 'true', []], [1, 'true', '[]'])).toBe(false)
+      expect(isEqual([1, 'true', [], null], [1, 'true', null, []])).toBe(false)
+      expect(isEqual({ a: 'James' }, { a: 'JameS' })).toBe(false)
+      expect(isEqual({ a: 'James' }, { a: 'James', b: 17 })).toBe(false)
     })
 
     it('should respect the level of nesting(depth)', () => {

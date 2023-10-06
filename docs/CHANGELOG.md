@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.2.11 <small><sup>06-10-2023</sup></small>
+
+- [Fix] Fix issue with `isEqual` util not working with dates
+
 # v0.2.10 <small><sup>28-09-2023</sup></small>
 
 - [Update] Update types and implementation details of `isEqual` util

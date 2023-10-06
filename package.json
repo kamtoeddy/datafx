@@ -32,12 +32,13 @@
   },
   "scripts": {
     "build": "tsup",
+    "build:watch": "tsup --watch",
     "clean-up": "rm -rf coverage dist",
-    "lint": "eslint . --ext .ts",
+    "lint": "eslint \"src/**/*.ts*\" && tsc --noEmit",
     "test": "npm run build && vitest run",
     "tes:cov": "npm run build && vitest run --coverage",
     "test:watch": "npm run build && vitest",
     "prepare": "npm run clean-up && npm run build"
   },
-  "version": "0.2.10"
+  "version": "0.2.11"
 }

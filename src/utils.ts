@@ -40,6 +40,8 @@ const capitalise = (value: string) => {
  * @param  depth how deep in nesting should equality checks be performed for objects
  */
 function isEqual<T>(a: any, b: T, depth: number = 1): a is T {
+  if (a instanceof Date && b instanceof Date) return a.getTime() === b.getTime()
+
   if (!a || !b || (typeof a !== 'object' && typeof b !== 'object'))
     return a === b
 
