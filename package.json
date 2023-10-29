@@ -41,5 +41,5 @@
     "test:watch": "npm run build && vitest",
     "prepare": "npm run clean-up && npm run build"
   },
-  "version": "0.2.11"
+  "version": "0.2.12"
 }
