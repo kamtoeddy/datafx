@@ -1,5 +1,5 @@
 type Bio = {
-  [key: string]: { displayName: string; followers: number; link: string };
+  facebook: { displayName: string; followers: number; link: string };
 };
 
 export type User = {
@@ -12,46 +12,46 @@ export type User = {
 export const users: User[] = [
   {
     id: 1,
-    name: "James",
+    name: 'James',
     age: 10,
     bio: {
       facebook: {
-        displayName: "james-1",
+        displayName: 'james-1',
         followers: 0,
-        link: "/facebook/james",
-      },
-    },
+        link: '/facebook/james'
+      }
+    }
   },
   {
     id: 2,
-    name: "Mary",
+    name: 'Mary',
     age: 11,
     bio: {
       facebook: {
-        displayName: "mary-jane",
+        displayName: 'mary-jane',
         followers: 0,
-        link: "/facebook/mary",
-      },
-    },
+        link: '/facebook/mary'
+      }
+    }
   },
   {
     id: 3,
-    name: "Peter",
+    name: 'Peter',
     age: 15,
     bio: {
-      facebook: { displayName: "mr_p", followers: 0, link: "/facebook/peter" },
-    },
+      facebook: { displayName: 'mr_p', followers: 0, link: '/facebook/peter' }
+    }
   },
   {
     id: 1,
-    name: "James",
+    name: 'James',
     age: 15,
     bio: {
       facebook: {
-        displayName: "james-2",
+        displayName: 'james-2',
         followers: 0,
-        link: "/facebook/james",
-      },
-    },
-  },
+        link: '/facebook/james'
+      }
+    }
+  }
 ];

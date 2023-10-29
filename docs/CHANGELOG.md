@@ -1,5 +1,9 @@
 # CHANGELOG
 
+# v0.2.12 <small><sup>29-10-2023</sup></small>
+
+- [Update] Improve type inference of nested keys utility
+
 # v0.2.11 <small><sup>06-10-2023</sup></small>
 
 - [Fix] Fix issue with `isEqual` util not working with dates
